@@ -106,7 +106,7 @@ These 100 messages were chosen for disagreement, so these rates describe the har
 | --- | --- | --- |
 | sarcasm at a teammate | `wow great gank jungle, really helpful` | toxic |
 | sarcasm at a teammate | `nice ward supp, very useful` | nontoxic |
-| sarcasm at a teammate | `0/6 at 12 min, truly a genius mid` | nontoxic |
+| sarcasm at a teammate | `0/6 at 12 min, truly a genius mid` | toxic |
 | sarcasm at a teammate | `ty for the kill steal adc <3` | toxic |
 | quoting or reporting | `report our jungle, he called our adc a retard` | nontoxic |
 | quoting or reporting | `lol my duo said gg ez to me in normals` | nontoxic |

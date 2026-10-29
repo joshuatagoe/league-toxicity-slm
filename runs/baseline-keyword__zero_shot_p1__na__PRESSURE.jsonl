@@ -23,7 +23,7 @@
 {"id": "p-08", "message": "he said 'uninstall' to bot, pls report", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 0, "error": null}
 {"id": "p-14", "message": "this item is trash now riot nerfed it", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 0, "error": null}
 {"id": "p-01", "message": "wow great gank jungle, really helpful", "gold": 1, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 0, "error": null}
-{"id": "p-03", "message": "0/6 at 12 min, truly a genius mid", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 0, "error": null}
+{"id": "p-03", "message": "0/6 at 12 min, truly a genius mid", "gold": 1, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 0, "error": null}
 {"id": "p-22", "message": "haha nice try lee, almost had me", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 0, "error": null}
 {"id": "p-36", "message": "who fed kayle", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 0, "error": null}
 {"id": "p-04", "message": "ty for the kill steal adc <3", "gold": 1, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 0, "error": null}

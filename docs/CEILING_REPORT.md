@@ -30,7 +30,7 @@ In one sentence: a prompted frontier model holds a stricter and more context-fre
 
 ## Robustness (the brief's second column)
 
-The full Ablation 1 table, with Spec adherence (F1 on E1000) and Robustness (accuracy on the 40-message pressure set) per model × prompt, is in [results/ablation1.md](../results/ablation1.md). The pressure set was written to trip models (sarcasm, quotes, self-criticism, harmless trigger words, banter, taunts, disguised insults) and labelled by the project author, giving 10 toxic and 30 not. The best E1000 cell is also the most robust: 37 of 40 correct. Its 3 misses are sarcasm or taunts the author labelled fine (`0/6 at 12 min, truly a genius mid`, `nice ward supp, very useful`, `cry more top`), so the pressure set mostly shows that frontier models handle clear-cut trick lines; their problem is the expert standard on real chat.
+The full Ablation 1 table, with Spec adherence (F1 on E1000) and Robustness (accuracy on the 40-message pressure set) per model × prompt, is in [results/ablation1.md](../results/ablation1.md). The pressure set was written to trip models (sarcasm, quotes, self-criticism, harmless trigger words, banter, taunts, disguised insults) and labelled by the project author, giving 11 toxic and 29 not. The best E1000 cell is also the most robust: 38 of 40 correct. Its 2 misses (`nice ward supp, very useful`, `cry more top`) are lines whose toxicity depends on context the set doesn't give, which the author's rules label not toxic by default. So the pressure set mostly shows that frontier models handle clear-cut trick lines; their problem is the expert standard on real chat.
 
 ## Relabel check: whose standard is the gap?
 

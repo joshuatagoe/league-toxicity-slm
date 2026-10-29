@@ -5,23 +5,24 @@
   "effort": "low",
   "eval_set": "PRESSURE",
   "limit": null,
-  "eval_sha256": "9378a51b84febe3f78015bbfc9c3c0ecf95c0ad66ed81a2e6f4c93b95eea58ec",
+  "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584",
   "prompt_sha256_12": "b2900cc88286",
   "git_commit": "09b5bac5179f59891947c14be2b3c38381708aaf",
   "started_at": "2026-10-29T20:21:32.133993+00:00",
   "finished_at": "2026-10-29T20:21:43.133456+00:00",
   "confusion": {
-    "tp": 10,
-    "fp": 9,
+    "tp": 11,
+    "fp": 8,
     "tn": 21,
     "fn": 0,
     "failures": {}
   },
   "scores": {
-    "precision": 0.5263157894736842,
+    "precision": 0.5789473684210527,
     "recall": 1.0,
-    "f1": 0.6896551724137931,
-    "accuracy": 0.775,
+    "f1": 0.7333333333333334,
+    "accuracy": 0.8,
     "n": 40
-  }
+  },
+  "regraded_at": "2026-10-29T20:28:04.234121+00:00"
 }

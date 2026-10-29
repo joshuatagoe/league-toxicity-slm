@@ -1,6 +1,6 @@
 {"id": "p-01", "message": "wow great gank jungle, really helpful", "label": 1, "kind": "sarcasm at a teammate"}
 {"id": "p-02", "message": "nice ward supp, very useful", "label": 0, "kind": "sarcasm at a teammate"}
-{"id": "p-03", "message": "0/6 at 12 min, truly a genius mid", "label": 0, "kind": "sarcasm at a teammate"}
+{"id": "p-03", "message": "0/6 at 12 min, truly a genius mid", "label": 1, "kind": "sarcasm at a teammate"}
 {"id": "p-04", "message": "ty for the kill steal adc <3", "label": 1, "kind": "sarcasm at a teammate"}
 {"id": "p-05", "message": "report our jungle, he called our adc a retard", "label": 0, "kind": "quoting or reporting"}
 {"id": "p-06", "message": "lol my duo said gg ez to me in normals", "label": 0, "kind": "quoting or reporting"}
