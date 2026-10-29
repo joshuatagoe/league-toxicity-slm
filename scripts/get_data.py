@@ -2,8 +2,8 @@
 
 Usage: python -I scripts/get_data.py
 
-Writes data/raw/*.csv (not committed), data/eval/E707.jsonl and data/eval/FULL.jsonl,
-and data/manifest.json with the SHA-256 of every file. If data/manifest.json already
+Writes data/raw/*.csv (not committed), data/eval/E1000.jsonl (the benchmark: the first
+1,000 test rows) and data/eval/FULL.jsonl (all 3,035), and data/manifest.json with the SHA-256 of every file. If data/manifest.json already
 exists, the raw files must match the hashes recorded there.
 """
 import csv
@@ -19,10 +19,11 @@ FILES = {
     "train": "2_16000_chatlogs_english_only_train_split.csv",
     "test": "2_16000_chatlogs_english_only_test_split.csv",
 }
-# Counts from the paper (arXiv:2604.10175): test split 2,755 non-toxic / 280 toxic;
-# the GPT-4o subset is the first 707 test rows, 667 non-toxic / 40 toxic.
+# Counts from the paper (arXiv:2604.10175): test split 2,755 non-toxic / 280 toxic.
+# The paper's GPT-4o subset (667 / 40) can't be rebuilt from this file, so the
+# benchmark is simply the first 1,000 test rows.
 EXPECTED_TEST = (2755, 280)
-EXPECTED_E707 = (667, 40)
+BENCHMARK_ROWS = 1000
 KEEP = ["id", "message", "label", "chatlog_id", "time", "champion_name"]
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -71,19 +72,13 @@ def main() -> int:
 
     train = read_rows(RAW / FILES["train"])
     test = read_rows(RAW / FILES["test"])
-    e707 = test[:707]
-    print(f"train: {counts(train)} | test: {counts(test)} | E707: {counts(e707)}  (non-toxic, toxic)")
+    benchmark = test[:BENCHMARK_ROWS]
+    print(f"train: {counts(train)} | test: {counts(test)} | E1000: {counts(benchmark)}  (non-toxic, toxic)")
 
     ok = True
     if counts(test) != EXPECTED_TEST:
         print(f"test counts differ from the paper: expected {EXPECTED_TEST}")
         ok = False
-    e707_matches_paper = counts(e707) == EXPECTED_E707
-    if not e707_matches_paper:
-        # The paper's GPT-4o subset can't be rebuilt from this file: neither `label`
-        # nor `old_label` gives 40 toxic in the first 707 rows. E707 is still frozen
-        # with the paper script's selection rule (first N rows) and flagged here.
-        print(f"WARNING: E707 counts differ from the paper's subset {EXPECTED_E707}; comparison with the paper is approximate")
     test_ids = {r["id"] for r in test}
     overlap = sum(r["id"] in test_ids for r in train)
     if overlap:
@@ -92,14 +87,15 @@ def main() -> int:
     if not ok:
         return 1
 
-    write_jsonl(EVAL / "E707.jsonl", e707)
+    for stale in EVAL.glob("*.jsonl"):
+        stale.unlink()
+    write_jsonl(EVAL / "E1000.jsonl", benchmark)
     write_jsonl(EVAL / "FULL.jsonl", test)
     manifest = {
         "source": f"irdin-pekaric/esorics26_toxicity@{PINNED_COMMIT}",
         "raw": hashes,
         "eval": {p.name: sha256(p) for p in sorted(EVAL.glob("*.jsonl"))},
-        "counts": {"train": counts(train), "test": counts(test), "E707": counts(e707)},
-        "E707_matches_paper_subset": e707_matches_paper,
+        "counts": {"train": counts(train), "test": counts(test), "E1000": counts(benchmark)},
     }
     MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n")
     print("eval sets frozen; hashes in data/manifest.json")

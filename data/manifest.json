@@ -5,7 +5,7 @@
     "2_16000_chatlogs_english_only_test_split.csv": "502f40cbfa37f3cc5f30d8ee86415dc01e2987ee512af665fc239bf7a1aef615"
   },
   "eval": {
-    "E707.jsonl": "1fcabf876c81a0301f4c0c28c5b0115b4f012eddff1a66b2f4665053d600b2c6",
+    "E1000.jsonl": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91",
     "FULL.jsonl": "95ee13ad929bf7e75db3695ebc738c4383a811ab7dab4e580b7c612f3cba586c"
   },
   "counts": {
@@ -17,10 +17,9 @@
       2755,
       280
     ],
-    "E707": [
-      643,
-      64
+    "E1000": [
+      898,
+      102
     ]
-  },
-  "E707_matches_paper_subset": false
+  }
 }

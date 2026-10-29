@@ -1,6 +1,6 @@
 """Build the prompt-ceiling results table from the run files.
 
-Usage: python -I src/report.py --eval-set E707 [--include-limited]
+Usage: python -I src/report.py --eval-set E1000 [--include-limited]
 
 Writes results/ceiling_<eval set>.md and, for the best model cell, results/errors_<cell>.md
 listing every false alarm and miss. Every number comes from runs/*.jsonl.
@@ -38,7 +38,7 @@ def cost_per_million(model: str, records: list[dict], prices: dict) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--eval-set", required=True, choices=("E707", "FULL"))
+    ap.add_argument("--eval-set", required=True, choices=("E1000", "FULL"))
     ap.add_argument("--include-limited", action="store_true", help="also report smoke runs (__nN)")
     args = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")  # Windows consoles default to cp1252
@@ -82,7 +82,7 @@ def main() -> int:
             f"| {'yes' if meets else 'no'} | {failures} | {r['latency']} ms "
             f"| {cost_per_million(m['model'], r['records'], prices)} |"
         )
-    lines += ["", "Paper rows for reference (a different 707-message subset, so the comparison is approximate):", ""]
+    lines += ["", "Paper rows for reference (measured on a different 707-message subset, so the comparison is approximate):", ""]
     lines += ["| Source | Precision | Recall | F1 |", "| --- | --- | --- | --- |"]
     lines += [f"| {name} | {p:.3f} | {rc:.3f} | {f:.3f} |" for name, p, rc, f in PAPER]
 

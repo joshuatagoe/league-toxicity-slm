@@ -1,8 +1,8 @@
 """Run one model x prompt-style cell of the prompt-ceiling grid.
 
 Usage:
-  python -I src/run_ceiling.py --model claude-opus-5-5 --strategy structured --eval-set E707
-  python -I src/run_ceiling.py --model baseline:keyword --strategy zero_shot_p1 --eval-set E707
+  python -I src/run_ceiling.py --model claude-opus-5-5 --strategy structured --eval-set E1000
+  python -I src/run_ceiling.py --model baseline:keyword --strategy zero_shot_p1 --eval-set E1000
 
 Writes runs/<cell>.jsonl (one line per message) and runs/<cell>.meta.json. Re-running the
 same command resumes: messages already in the .jsonl are skipped.
@@ -62,7 +62,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
     ap.add_argument("--strategy", required=True, choices=STRATEGIES)
-    ap.add_argument("--eval-set", required=True, choices=("E707", "FULL"))
+    ap.add_argument("--eval-set", required=True, choices=("E1000", "FULL"))
     ap.add_argument("--limit", type=int, help="score only the first N messages (smoke runs)")
     ap.add_argument("--effort", default="low", help="reasoning effort for models that take one")
     ap.add_argument("--workers", type=int, default=8)

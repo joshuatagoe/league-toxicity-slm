@@ -1,0 +1,27 @@
+{
+  "cell": "baseline-keyword__zero_shot_p1__na__E1000",
+  "model": "baseline:keyword",
+  "strategy": "zero_shot_p1",
+  "effort": "na",
+  "eval_set": "E1000",
+  "limit": null,
+  "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91",
+  "prompt_sha256_12": "71e8123fd288",
+  "git_commit": "0a0ae2b7794b5b66d537c1bf665cfb5df0ad5b15",
+  "started_at": "2026-10-29T18:42:57.675642+00:00",
+  "finished_at": "2026-10-29T18:42:57.705049+00:00",
+  "confusion": {
+    "tp": 58,
+    "fp": 48,
+    "tn": 850,
+    "fn": 44,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.5471698113207547,
+    "recall": 0.5686274509803921,
+    "f1": 0.5576923076923078,
+    "accuracy": 0.908,
+    "n": 1000
+  }
+}

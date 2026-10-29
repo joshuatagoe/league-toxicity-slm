@@ -1,0 +1,20 @@
+{"id": "13349", "message": "nerfed tho", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 340, "output_tokens": 7, "latency_ms": 1785, "error": null}
+{"id": "11925", "message": "noob", "gold": 1, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": "completed", "input_tokens": 339, "output_tokens": 6, "latency_ms": 1788, "error": null}
+{"id": "6090", "message": "varus powrr", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 341, "output_tokens": 7, "latency_ms": 1908, "error": null}
+{"id": "7707", "message": "WHO FED KAYLE!?!!?!?!", "gold": 1, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": "completed", "input_tokens": 345, "output_tokens": 6, "latency_ms": 1965, "error": null}
+{"id": "9524", "message": "this mid", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 339, "output_tokens": 7, "latency_ms": 1982, "error": null}
+{"id": "6151", "message": "srsly udyr", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": "completed", "input_tokens": 342, "output_tokens": 6, "latency_ms": 2069, "error": null}
+{"id": "10236", "message": "HAHAHAHA VARUS", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": "completed", "input_tokens": 341, "output_tokens": 6, "latency_ms": 2103, "error": null}
+{"id": "11095", "message": "GG", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 338, "output_tokens": 7, "latency_ms": 2542, "error": null}
+{"id": "14951", "message": "1", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 338, "output_tokens": 7, "latency_ms": 1094, "error": null}
+{"id": "4073", "message": "Dat Zyra skin doe o:", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 343, "output_tokens": 7, "latency_ms": 1144, "error": null}
+{"id": "12155", "message": "4 v 5 first 12 minutes. Go do the math kid.", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": "completed", "input_tokens": 351, "output_tokens": 6, "latency_ms": 1184, "error": null}
+{"id": "14860", "message": "smiteless ple", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 341, "output_tokens": 7, "latency_ms": 1260, "error": null}
+{"id": "913", "message": "lag", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 338, "output_tokens": 7, "latency_ms": 1177, "error": null}
+{"id": "11385", "message": "easy", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": "completed", "input_tokens": 338, "output_tokens": 6, "latency_ms": 1316, "error": null}
+{"id": "3591", "message": "when you jump on turrnet", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 344, "output_tokens": 7, "latency_ms": 1515, "error": null}
+{"id": "12449", "message": "pfiou", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 340, "output_tokens": 7, "latency_ms": 887, "error": null}
+{"id": "6302", "message": "there goes", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 339, "output_tokens": 7, "latency_ms": 1298, "error": null}
+{"id": "1929", "message": "4 bot again", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 340, "output_tokens": 7, "latency_ms": 863, "error": null}
+{"id": "449", "message": "nice", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": "completed", "input_tokens": 338, "output_tokens": 7, "latency_ms": 1484, "error": null}
+{"id": "13760", "message": "0/3 nasus", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": "completed", "input_tokens": 342, "output_tokens": 6, "latency_ms": 1694, "error": null}
