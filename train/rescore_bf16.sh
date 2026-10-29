@@ -5,10 +5,10 @@
 set -euo pipefail
 PY=.venv-train/Scripts/python
 score() {  # score <model> <run name>
-  "$PY" eval.py --model "$1" --name "$2" --eval-set data/eval/E1000.jsonl
-  "$PY" eval.py --model "$1" --name "$2" --eval-set data/pressure/PRESSURE.jsonl
+  "$PY" -u eval.py --model "$1" --name "$2" --eval-set data/eval/E1000.jsonl
+  "$PY" -u eval.py --model "$1" --name "$2" --eval-set data/pressure/PRESSURE.jsonl
 }
 score Qwen/Qwen3-1.7B qwen3-1.7b-base
-for n in 10919 1364 2729 5459; do
+for n in 10919 1364 2729; do  # n5459 was already scored in bf16 by run_v1.sh
   score "models/qwen3-1.7b-v1-n$n" "qwen3-1.7b-v1-n$n"
 done

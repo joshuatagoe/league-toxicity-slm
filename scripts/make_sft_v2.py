@@ -4,6 +4,8 @@ Usage: python -I scripts/make_sft_v2.py
 
 The only change from v1 is data: 676 teacher-written lines aimed at the two failures
 v1 showed on the pressure set. Same prompt, same format, same training settings.
+Also writes train_v2_small.jsonl: the first 2,729 v1 rows (the same subset as the
+v1 n2729 run) plus the same teacher rows, to test whether a small curated set holds.
 """
 import hashlib
 import json
@@ -18,22 +20,26 @@ from slm_prompt import LABELS, messages  # noqa: E402
 SEED = 11
 SFT = ROOT / "data" / "sft"
 
+SMALL_V1_ROWS = 2729
+
 v1 = [json.loads(l) for l in (SFT / "train_v1.jsonl").open(encoding="utf-8") if l.strip()]
 teacher = [json.loads(l) for l in (SFT / "teacher_v2.jsonl").open(encoding="utf-8") if l.strip()]
-rows = v1 + [
+teacher_rows = [
     {"id": f"t2-{i:04d}", "label": t["label"], "category": t["category"],
      "prompt": messages(t["message"]), "completion": [{"role": "assistant", "content": LABELS[t["label"]]}]}
     for i, t in enumerate(teacher)
 ]
-random.Random(SEED).shuffle(rows)
-
-path = SFT / "train_v2.jsonl"
-with path.open("w", encoding="utf-8", newline="\n") as f:
-    for r in rows:
-        f.write(json.dumps(r, ensure_ascii=False) + "\n")
 manifest = json.loads((SFT / "manifest.json").read_text())
-manifest["sha256"]["train_v2.jsonl"] = hashlib.sha256(path.read_bytes()).hexdigest()
-manifest["v2"] = {"seed": SEED, "v1_rows": len(v1), "teacher_rows": len(teacher)}
+for name, base in (("train_v2.jsonl", v1), ("train_v2_small.jsonl", v1[:SMALL_V1_ROWS])):
+    rows = base + teacher_rows
+    random.Random(SEED).shuffle(rows)
+    path = SFT / name
+    with path.open("w", encoding="utf-8", newline="\n") as f:
+        for r in rows:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    manifest["sha256"][name] = hashlib.sha256(path.read_bytes()).hexdigest()
+    manifest[name.removesuffix(".jsonl")] = {"seed": SEED, "v1_rows": len(base), "teacher_rows": len(teacher_rows)}
+    toxic = sum(r["label"] for r in rows)
+    print(f"{name}: {len(rows)} rows ({len(base)} v1 + {len(teacher_rows)} teacher), {toxic} toxic ({toxic / len(rows):.1%})")
+manifest.pop("v2", None)
 (SFT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-toxic = sum(r["label"] for r in rows)
-print(f"train_v2.jsonl: {len(rows)} rows ({len(v1)} v1 + {len(teacher)} teacher), {toxic} toxic ({toxic / len(rows):.1%})")
