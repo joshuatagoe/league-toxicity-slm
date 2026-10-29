@@ -1,0 +1,27 @@
+{
+  "cell": "claude-opus-5-5__zero_shot_p1__low__FULL",
+  "model": "claude-opus-5-5",
+  "strategy": "zero_shot_p1",
+  "effort": "low",
+  "eval_set": "FULL",
+  "limit": null,
+  "eval_sha256": "95ee13ad929bf7e75db3695ebc738c4383a811ab7dab4e580b7c612f3cba586c",
+  "prompt_sha256_12": "71e8123fd288",
+  "git_commit": "1f5c0a9b8b03a1d5253a58ff76ae9fd6950484e4",
+  "started_at": "2026-10-29T18:56:46.635981+00:00",
+  "finished_at": "2026-10-29T19:05:45.526060+00:00",
+  "confusion": {
+    "tp": 212,
+    "fp": 145,
+    "tn": 2610,
+    "fn": 68,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.5938375350140056,
+    "recall": 0.7571428571428571,
+    "f1": 0.6656200941915227,
+    "accuracy": 0.9298187808896211,
+    "n": 3035
+  }
+}

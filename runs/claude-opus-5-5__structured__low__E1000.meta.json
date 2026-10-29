@@ -1,0 +1,27 @@
+{
+  "cell": "claude-opus-5-5__structured__low__E1000",
+  "model": "claude-opus-5-5",
+  "strategy": "structured",
+  "effort": "low",
+  "eval_set": "E1000",
+  "limit": null,
+  "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91",
+  "prompt_sha256_12": "bf154d7d8272",
+  "git_commit": "1f5c0a9b8b03a1d5253a58ff76ae9fd6950484e4",
+  "started_at": "2026-10-29T18:52:02.674276+00:00",
+  "finished_at": "2026-10-29T18:56:10.474704+00:00",
+  "confusion": {
+    "tp": 89,
+    "fp": 168,
+    "tn": 730,
+    "fn": 13,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.3463035019455253,
+    "recall": 0.8725490196078431,
+    "f1": 0.4958217270194985,
+    "accuracy": 0.819,
+    "n": 1000
+  }
+}

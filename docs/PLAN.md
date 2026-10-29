@@ -56,6 +56,10 @@ Measure precision, recall and F1 on real League chat for a current OpenAI model 
 - **Effort is `low` by default** for models that take one, and is recorded per run. If the best cell lands near the bar, it is rerun at a higher effort before deciding.
 - **First baseline result:** the keyword rule scores F1 0.558 on `E1000` (precision 0.547, recall 0.569), already above the paper's GPT-4o (F1 0.507).
 
+## Decision (2026-10-29)
+
+Go. No cell met the bar; the best (Claude Opus 5.5, zero-shot P1) reached precision 0.594 and F1 0.666 on `FULL`. The step-9 rerun on `FULL` was needed because the cell's `E1000` F1 interval (0.62–0.76) touched 0.75; on `FULL` the interval is 0.62–0.70. The higher-effort rerun noted above was not run, since precision on `FULL` (top of interval 0.64) is far from 0.80. See [CEILING_REPORT.md](CEILING_REPORT.md).
+
 ## Risks
 
 - Only 40 toxic messages in `E707`, so recall is noisy; the intervals and the `FULL` rerun cover this.

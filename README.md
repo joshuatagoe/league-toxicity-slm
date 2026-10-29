@@ -4,6 +4,8 @@ A small language model that labels League of Legends chat messages as toxic or n
 
 The first milestone is the **prompt-ceiling gate**: do current frontier models still misjudge League chat, as GPT-4o did in the L2DTnH paper? The approved plan is in [docs/PLAN.md](docs/PLAN.md).
 
+**Gate result (2026-10-29): passed.** The best of six model × prompt cells (Claude Opus 5.5, zero-shot) reached precision 0.594 and F1 0.666 on the full test split, below the bar. Details in [docs/CEILING_REPORT.md](docs/CEILING_REPORT.md).
+
 ## The bar (set before any run)
 
 | Metric (toxic = positive class) | Bar | Source |

@@ -1,0 +1,27 @@
+{
+  "cell": "gpt-5.6-sol__zero_shot_p1__low__E1000",
+  "model": "gpt-5.6-sol",
+  "strategy": "zero_shot_p1",
+  "effort": "low",
+  "eval_set": "E1000",
+  "limit": null,
+  "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91",
+  "prompt_sha256_12": "71e8123fd288",
+  "git_commit": "1f5c0a9b8b03a1d5253a58ff76ae9fd6950484e4",
+  "started_at": "2026-10-29T18:45:54.600543+00:00",
+  "finished_at": "2026-10-29T18:48:27.476946+00:00",
+  "confusion": {
+    "tp": 88,
+    "fp": 123,
+    "tn": 775,
+    "fn": 14,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.41706161137440756,
+    "recall": 0.8627450980392157,
+    "f1": 0.562300319488818,
+    "accuracy": 0.863,
+    "n": 1000
+  }
+}
