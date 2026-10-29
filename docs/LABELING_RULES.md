@@ -38,5 +38,5 @@ Adding an insult, swearing at the player, mockery or a slur to any of these make
 ## Where these differ from the L2DTnH experts
 
 - The experts labelled many bare feed lines toxic (`soraka feed`), inconsistently.
-- The experts' rule makes a line toxic if just 2 of 8 annotators flag it, so borderline lines lean toxic; these rules lean not toxic when context is missing.
+- For the first 5,000 messages, the experts' rule made a line toxic if just 2 of 8 annotators flagged it, so borderline lines lean toxic; the rest were settled by 3 annotators in discussion. These rules lean not toxic when context is missing.
 - The experts labelled most plain report calls fine, as these rules do.

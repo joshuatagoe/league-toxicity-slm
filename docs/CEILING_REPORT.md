@@ -36,11 +36,13 @@ The full Ablation 1 table, with Spec adherence (F1 on E1000) and Robustness (acc
 
 The author relabelled the best cell's 71 disagreements plus 29 agreement controls, blind and with the surrounding chat ([results/relabel_analysis.md](../results/relabel_analysis.md)).
 
-- **On Claude's 47 false alarms, the author sided with the experts 35 times** (10 with Claude, 2 unsure). These lines were labelled fine in the first pass and never revisited; under the paper's rule (toxic if at least 2 of 8 annotators flag it), "fine" means at most 1 of 8 flagged it. So the over-flagging is real: experienced players, the author included, don't treat lines like `just l2p` or `report bot and xin` as toxic.
-- **On Claude's 24 misses, the author sided with Claude 21 times.** 21 of the 24 sit in the dataset's second review pass (`wrongly classified`), and the 2-of-8 rule makes a borderline line toxic. So most "missed toxicity" is lines a single experienced player wouldn't flag.
+- **On Claude's 47 false alarms, the author sided with the experts 35 times** (10 with Claude, 2 unsure). These lines were labelled fine and never revisited. So the over-flagging is real: experienced players, the author included, don't treat lines like `just l2p` or `report bot and xin` as toxic.
+- **On Claude's 24 misses, the author sided with Claude 21 times.** 21 of the 24 sit in the dataset's second review pass (`wrongly classified`). So most "missed toxicity" is contested lines a single experienced player wouldn't flag.
+
+How the experts labelled, per the paper: 8 players with 6 to 20 years of League experience labelled the first 5,000 messages independently, and a message was toxic if at least 2 of them flagged it (Fleiss' κ 0.62; 4,704 of the 5,000 were unanimous). Three of them, after aligning on that set, labelled the remaining ~11,000, discussing disagreements until they agreed. They saw each message and possibly the surrounding chat, with no match data. The paper doesn't describe the `old_label` / `wrongly classified` pass.
 - **The author is the most lenient of the three:** of 15 controls where the experts and Claude both said toxic, the author agreed on 9. Agreement on these hard cases is low for everyone (Cohen's kappa 0.16 with the experts, 0.21 with Claude).
 
-This changes the reading of the gap: Claude's false alarms reflect a stricter standard than League players hold, while its misses mostly reflect an inclusive labelling rule. A spec written as explicit rules (feed callouts, plain report calls, self-defence, sarcasm at a teammate) would be more consistent than either.
+This changes the reading of the gap: Claude's false alarms reflect a stricter standard than League players hold, while its misses are mostly contested lines. A spec written as explicit rules (feed callouts, plain report calls, self-defence, sarcasm at a teammate) would be more consistent than either.
 
 ## Caveats
 
