@@ -1,0 +1,13 @@
+# Training and local evaluation (Python 3.12, NVIDIA GPU).
+# Install torch first from the CUDA index:
+#   uv pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cu126
+# pandas is pinned to 2.2.3 because Windows Smart App Control blocked a compiled file in pandas 3.1.0.
+torch==2.14.1
+transformers==5.22.0
+peft==0.21.2
+trl==1.17.0
+bitsandbytes==0.50.2
+accelerate==1.15.0
+datasets==5.1.0
+huggingface-hub==2.4.0
+pandas==2.2.3

@@ -1,0 +1,8 @@
+{
+  "seed": 7,
+  "val_share": 0.1,
+  "sha256": {
+    "train_v1.jsonl": "4df4662d550271389932eac24be4788d5307ee0abc4266cccdfb4f287fd0b86b",
+    "val.jsonl": "7c189dcfff2a3d717d87e63d7d0883234d4b58db207ef346e46985ae6c8ca4b7"
+  }
+}
