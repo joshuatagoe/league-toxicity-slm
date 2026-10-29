@@ -46,6 +46,13 @@ Measure precision, recall and F1 on real League chat for a current OpenAI model 
 - Calibration against the paper's gpt-4o numbers (step 7).
 - For every cell, parsed + refused + failed = 707.
 
+## Deviations found while building (2026-10-29)
+
+- **The paper's GPT-4o subset can't be rebuilt.** The first 707 test rows hold 643 non-toxic / 64 toxic, not 667 / 40, and the file's `old_label` column gives 74 toxic, so neither matches. The full test split does match the paper (2,755 / 280). `E707` is still the first 707 rows, the paper script's selection rule, and is flagged in `data/manifest.json`. Comparison with the paper's GPT-4o rows is approximate. Awaiting a decision: keep `E707` for the grid, or run it on `FULL`.
+- **Same reply format and parser for every model.** No provider-specific structured-output feature is used: every model gets the same prompt text and the same parser (`src/labels.py`), so the comparison doesn't depend on API features.
+- **Effort is `low` by default** for models that take one, and is recorded per run. If the best cell lands near the bar, it is rerun at a higher effort before deciding.
+- **First baseline result:** the keyword rule scores F1 0.571 on `E707` (precision 0.526, recall 0.625), already above the paper's GPT-4o (F1 0.507).
+
 ## Risks
 
 - Only 40 toxic messages in `E707`, so recall is noisy; the intervals and the `FULL` rerun cover this.

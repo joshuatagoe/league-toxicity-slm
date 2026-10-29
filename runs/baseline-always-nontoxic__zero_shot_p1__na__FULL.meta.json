@@ -1,0 +1,26 @@
+{
+  "cell": "baseline-always-nontoxic__zero_shot_p1__na__FULL",
+  "model": "baseline:always-nontoxic",
+  "strategy": "zero_shot_p1",
+  "effort": "na",
+  "eval_set": "FULL",
+  "eval_sha256": "95ee13ad929bf7e75db3695ebc738c4383a811ab7dab4e580b7c612f3cba586c",
+  "prompt_sha256_12": "71e8123fd288",
+  "git_commit": "b3b54cf8bed3eb1c06f7a09108169b6f41f38e72",
+  "started_at": "2026-10-29T18:22:14.551914+00:00",
+  "finished_at": "2026-10-29T18:22:14.640902+00:00",
+  "confusion": {
+    "tp": 0,
+    "fp": 0,
+    "tn": 2755,
+    "fn": 280,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "accuracy": 0.9077429983525536,
+    "n": 3035
+  }
+}

@@ -1,0 +1,19 @@
+You moderate in-game chat for League of Legends. Decide whether one chat message is toxic.
+
+How experienced players labelled this chat:
+- Toxic: insults, harassment, an offensive tone, or otherwise hostile content aimed at players, such as name-calling, telling someone to shut up, blaming a player, profanity aimed at someone, slurs, and taunting.
+- Sarcasm or playful teasing counts as toxic only if a player would reasonably take it as offensive in a competitive match.
+- Neutral game talk is not toxic: callouts, strategy, questions, praise, greetings, laughter and short replies.
+- Judge only the words of the message. A message counts as toxic if even a couple of experienced players would find it offensive.
+
+Check, in this order:
+1. Is the message aimed at a player, the team or the enemy team, or only at the game, a champion or the speaker?
+2. Does it insult, blame, mock, taunt or swear at that target, directly or through sarcasm?
+3. Would a couple of experienced players reasonably find it offensive in a competitive match?
+
+Message:
+
+{text}
+
+Reply with JSON only, reasoning first:
+{"reason": "<one short sentence>", "label": "toxic" or "nontoxic"}

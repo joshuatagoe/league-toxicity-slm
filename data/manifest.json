@@ -1,0 +1,26 @@
+{
+  "source": "irdin-pekaric/esorics26_toxicity@66929d13e455d529f99feee2819374a60ecd6ad9",
+  "raw": {
+    "2_16000_chatlogs_english_only_train_split.csv": "be0b648f82fa17445813148c152ffb1d1140cf3ee11df9715c15a2938e017e2a",
+    "2_16000_chatlogs_english_only_test_split.csv": "502f40cbfa37f3cc5f30d8ee86415dc01e2987ee512af665fc239bf7a1aef615"
+  },
+  "eval": {
+    "E707.jsonl": "1fcabf876c81a0301f4c0c28c5b0115b4f012eddff1a66b2f4665053d600b2c6",
+    "FULL.jsonl": "95ee13ad929bf7e75db3695ebc738c4383a811ab7dab4e580b7c612f3cba586c"
+  },
+  "counts": {
+    "train": [
+      11018,
+      1118
+    ],
+    "test": [
+      2755,
+      280
+    ],
+    "E707": [
+      643,
+      64
+    ]
+  },
+  "E707_matches_paper_subset": false
+}

@@ -1,0 +1,18 @@
+You are a classifier that detects toxic behavior in League of Legends chat.
+
+How experienced players labelled this chat:
+- Toxic: insults, harassment, an offensive tone, or otherwise hostile content aimed at players, such as name-calling, telling someone to shut up, blaming a player, profanity aimed at someone, slurs, and taunting.
+- Sarcasm or playful teasing counts as toxic only if a player would reasonably take it as offensive in a competitive match.
+- Neutral game talk is not toxic: callouts, strategy, questions, praise, greetings, laughter and short replies.
+- Judge only the words of the message. A message counts as toxic if even a couple of experienced players would find it offensive.
+
+Labelled examples:
+
+{examples}
+
+Classify the following message as either 'toxic' or 'nontoxic'.
+Your response must be only: toxic OR nontoxic.
+
+Message:
+
+{text}
