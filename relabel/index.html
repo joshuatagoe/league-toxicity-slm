@@ -88,7 +88,7 @@ button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px 
   <header>
     <div class="eyebrow">L2DTnH · relabel check</div>
     <h1>League Chat Relabel Desk</h1>
-    <p class="lede">Label each highlighted message the way an experienced League player would. You won't see the experts' label or the model's answer. Your labels save as you go.</p>
+    <p class="lede">Label each highlighted message the way an experienced League player would. You won't see the experts' label or the model's answer. Your labels save as you go. Keys: <b>T</b>, <b>N</b> or <b>U</b> to label, <b>←</b> and <b>→</b> to move.</p>
   </header>
 
   <div class="parts" role="group" aria-label="Part">
@@ -137,8 +137,8 @@ button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px 
     </label>
     <div class="nav">
       <div class="group">
-        <button class="btn" id="prev">← Previous</button>
-        <button class="btn" id="next">Next →</button>
+        <button class="btn" id="prev" title="Left arrow key">← Previous</button>
+        <button class="btn" id="next" title="Right arrow key">Next →</button>
       </div>
       <button class="btn primary" id="next-open">Next unlabelled</button>
     </div>
@@ -289,9 +289,14 @@ $("copy").addEventListener("click", async () => {
   try { await navigator.clipboard.writeText(text); setStatus("Copied " + savedCount() + " labels."); }
   catch { setStatus("Copy was blocked. Tell Claude you're done instead.", true); }
 });
-document.addEventListener("keydown", (e) => {
-  if (e.target.closest && e.target.closest("input, textarea")) return;
+window.addEventListener("keydown", (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const inField = e.target.closest && e.target.closest("input, textarea");
+  if (inField) {
+    // In the note field, Enter or Escape finishes the note; the arrows move only when the note is empty.
+    if (e.key === "Enter" || e.key === "Escape") { e.target.blur(); e.preventDefault(); return; }
+    if (!(e.target.value === "" && (e.key === "ArrowLeft" || e.key === "ArrowRight"))) return;
+  }
   const k = e.key.toLowerCase();
   if (k === "t") choose("toxic");
   else if (k === "n") choose("nontoxic");
@@ -300,7 +305,7 @@ document.addEventListener("keydown", (e) => {
   else if (e.key === "ArrowRight") move(1);
   else return;
   e.preventDefault();
-});
+}, true);
 
 render();
 
