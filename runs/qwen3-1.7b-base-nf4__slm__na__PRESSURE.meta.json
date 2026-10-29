@@ -1,0 +1,32 @@
+{
+  "cell": "qwen3-1.7b-base-nf4__slm__na__PRESSURE",
+  "model": "qwen3-1.7b-base-nf4",
+  "model_ref": "Qwen/Qwen3-1.7B",
+  "revision": null,
+  "strategy": "slm",
+  "effort": "na",
+  "eval_set": "PRESSURE",
+  "limit": null,
+  "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584",
+  "git_commit": "7a681974be2fb33b8c392c811df3f4d2786c4882",
+  "finished_at": "2026-10-29T20:39:00.726309+00:00",
+  "per_message_ms": 78.6,
+  "confusion": {
+    "tp": 0,
+    "fp": 27,
+    "tn": 2,
+    "fn": 11,
+    "failures": {
+      "parse_fail": 37
+    }
+  },
+  "scores": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "accuracy": 0.05,
+    "n": 40
+  },
+  "quantization": "nf4",
+  "note": "untrained or tuned model scored with a 4-bit base; kept as evidence, see docs/PLAN.md"
+}

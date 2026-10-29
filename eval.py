@@ -34,6 +34,7 @@ def main() -> int:
     ap.add_argument("--limit", type=int)
     ap.add_argument("--batch", type=int, default=32)
     ap.add_argument("--name", help="run name (default: derived from --model)")
+    ap.add_argument("--four-bit", action="store_true", help="load the base in 4-bit (default: bf16)")
     args = ap.parse_args()
 
     eval_path = Path(args.eval_set)
@@ -42,7 +43,7 @@ def main() -> int:
         rows = rows[: args.limit]
     eval_name = eval_path.stem
 
-    tokenizer, model = load(args.model, args.revision)
+    tokenizer, model = load(args.model, args.revision, four_bit=args.four_bit)
     start = time.perf_counter()
     raws = label(tokenizer, model, [r["message"] for r in rows], args.batch)
     per_message_ms = round((time.perf_counter() - start) * 1000 / max(1, len(rows)), 1)
@@ -72,6 +73,7 @@ def main() -> int:
     meta = {
         "cell": cell, "model": name, "model_ref": args.model, "revision": args.revision,
         "strategy": "slm", "effort": "na", "eval_set": eval_name, "limit": args.limit,
+        "quantization": "nf4" if args.four_bit else "bf16",
         "eval_sha256": hashlib.sha256(eval_path.read_bytes()).hexdigest(),
         "git_commit": commit, "finished_at": datetime.now(timezone.utc).isoformat(),
         "per_message_ms": per_message_ms, "confusion": c, "scores": s,

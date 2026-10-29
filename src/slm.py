@@ -26,8 +26,13 @@ def render(tokenizer, text: str) -> str:
     return tokenizer.apply_chat_template(messages(text), tokenize=False, add_generation_prompt=True, enable_thinking=False)
 
 
-def load(model_ref: str, revision: str | None = None, four_bit: bool = True):
-    """model_ref is a full model (hub id or folder) or a LoRA adapter folder/repo."""
+def load(model_ref: str, revision: str | None = None, four_bit: bool = False):
+    """model_ref is a full model (hub id or folder) or a LoRA adapter folder/repo.
+
+    Evaluation loads the base in bf16 by default: in 4-bit, the untrained Qwen3-1.7B
+    often echoes a word from the message instead of answering, which made the base
+    score meaningless. Training still uses the 4-bit base (QLoRA).
+    """
     adapter_cfg = None
     local = Path(model_ref)
     if (local / "adapter_config.json").exists():

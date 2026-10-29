@@ -1,0 +1,45 @@
+{
+  "teacher": "claude-opus-5-5",
+  "critic": "gpt-5.6-sol",
+  "seed": 2026,
+  "calls": 48,
+  "generated": 720,
+  "dropped": {
+    "duplicate": 0,
+    "length": 0,
+    "in_eval": 2,
+    "near_pressure": 2,
+    "in_train": 0
+  },
+  "kept": 676,
+  "disputed": 40,
+  "cost_usd_list_price": 0.81,
+  "kept_by_category": {
+    "sarcasm_at_teammate": 57,
+    "taunt_enemy": 48,
+    "diff_putdown": 56,
+    "polite_putdown": 48,
+    "disguised_insult": 60,
+    "quote_or_report": 59,
+    "game_complaint": 60,
+    "self_criticism": 59,
+    "harmless_trigger_words": 59,
+    "feed_callout": 60,
+    "friendly_banter": 50,
+    "stop_the_flame": 60
+  },
+  "disputed_by_category": {
+    "sarcasm_at_teammate": 3,
+    "taunt_enemy": 12,
+    "diff_putdown": 1,
+    "polite_putdown": 12,
+    "disguised_insult": 0,
+    "quote_or_report": 1,
+    "game_complaint": 0,
+    "self_criticism": 0,
+    "harmless_trigger_words": 1,
+    "feed_callout": 0,
+    "friendly_banter": 10,
+    "stop_the_flame": 0
+  }
+}

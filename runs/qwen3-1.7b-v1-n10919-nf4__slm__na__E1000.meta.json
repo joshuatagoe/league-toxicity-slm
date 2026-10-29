@@ -1,0 +1,30 @@
+{
+  "cell": "qwen3-1.7b-v1-n10919-nf4__slm__na__E1000",
+  "model": "qwen3-1.7b-v1-n10919-nf4",
+  "model_ref": "models/qwen3-1.7b-v1-n10919",
+  "revision": null,
+  "strategy": "slm",
+  "effort": "na",
+  "eval_set": "E1000",
+  "limit": null,
+  "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91",
+  "git_commit": "7edd04f44bf75cfa4a3320849cf0ad7b8d1819a3",
+  "finished_at": "2026-10-29T20:58:16.746815+00:00",
+  "per_message_ms": 40.7,
+  "confusion": {
+    "tp": 59,
+    "fp": 12,
+    "tn": 886,
+    "fn": 43,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.8309859154929577,
+    "recall": 0.5784313725490197,
+    "f1": 0.6820809248554914,
+    "accuracy": 0.945,
+    "n": 1000
+  },
+  "quantization": "nf4",
+  "note": "untrained or tuned model scored with a 4-bit base; kept as evidence, see docs/PLAN.md"
+}
