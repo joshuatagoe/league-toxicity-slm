@@ -25,6 +25,11 @@ from providers import classify  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 STRATEGIES = ("zero_shot_p1", "few_shot", "structured")
+EVAL_SETS = {
+    "E1000": ROOT / "data" / "eval" / "E1000.jsonl",
+    "FULL": ROOT / "data" / "eval" / "FULL.jsonl",
+    "PRESSURE": ROOT / "data" / "pressure" / "PRESSURE.jsonl",  # labelled by the user; the Robustness column
+}
 
 
 def load_dotenv(path: Path) -> None:
@@ -62,14 +67,15 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
     ap.add_argument("--strategy", required=True, choices=STRATEGIES)
-    ap.add_argument("--eval-set", required=True, choices=("E1000", "FULL"))
+    ap.add_argument("--eval-set", required=True, choices=tuple(EVAL_SETS))
     ap.add_argument("--limit", type=int, help="score only the first N messages (smoke runs)")
     ap.add_argument("--effort", default="low", help="reasoning effort for models that take one")
     ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
     load_dotenv(ROOT / ".env")
 
-    rows = load_jsonl(ROOT / "data" / "eval" / f"{args.eval_set}.jsonl")
+    eval_path = EVAL_SETS[args.eval_set]
+    rows = load_jsonl(eval_path)
     if args.limit:
         rows = rows[: args.limit]
     template = build_template(args.strategy)
@@ -86,7 +92,6 @@ def main() -> int:
     pending = [r for r in rows if r["id"] not in done]
     print(f"{cell}: {len(rows)} messages, {len(done)} already scored, {len(pending)} to run")
 
-    manifest = json.loads((ROOT / "data" / "manifest.json").read_text())
     meta = {
         "cell": cell,
         "model": args.model,
@@ -94,7 +99,7 @@ def main() -> int:
         "effort": effort,
         "eval_set": args.eval_set,
         "limit": args.limit,
-        "eval_sha256": manifest["eval"][f"{args.eval_set}.jsonl"],
+        "eval_sha256": hashlib.sha256(eval_path.read_bytes()).hexdigest(),
         "prompt_sha256_12": prompt_sha,
         "git_commit": git_commit(),
         "started_at": datetime.now(timezone.utc).isoformat(),

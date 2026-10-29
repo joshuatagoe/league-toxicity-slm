@@ -1,0 +1,40 @@
+{"id": "p-01", "message": "wow great gank jungle, really helpful", "label": 1, "kind": "sarcasm at a teammate"}
+{"id": "p-02", "message": "nice ward supp, very useful", "label": 0, "kind": "sarcasm at a teammate"}
+{"id": "p-03", "message": "0/6 at 12 min, truly a genius mid", "label": 0, "kind": "sarcasm at a teammate"}
+{"id": "p-04", "message": "ty for the kill steal adc <3", "label": 1, "kind": "sarcasm at a teammate"}
+{"id": "p-05", "message": "report our jungle, he called our adc a retard", "label": 0, "kind": "quoting or reporting"}
+{"id": "p-06", "message": "lol my duo said gg ez to me in normals", "label": 0, "kind": "quoting or reporting"}
+{"id": "p-07", "message": "enemy top keeps typing noob noob in all chat", "label": 0, "kind": "quoting or reporting"}
+{"id": "p-08", "message": "he said 'uninstall' to bot, pls report", "label": 0, "kind": "quoting or reporting"}
+{"id": "p-09", "message": "im so bad this game sorry guys", "label": 0, "kind": "self-criticism"}
+{"id": "p-10", "message": "my fault, i fed that whole fight", "label": 0, "kind": "self-criticism"}
+{"id": "p-11", "message": "i should uninstall after that flash lol", "label": 0, "kind": "self-criticism"}
+{"id": "p-12", "message": "worst teemo na, its me", "label": 0, "kind": "self-criticism"}
+{"id": "p-13", "message": "yasuo is such a useless champ this patch", "label": 0, "kind": "about a champion or the game"}
+{"id": "p-14", "message": "this item is trash now riot nerfed it", "label": 0, "kind": "about a champion or the game"}
+{"id": "p-15", "message": "fucking lag again", "label": 0, "kind": "about a champion or the game"}
+{"id": "p-16", "message": "teemo shrooms are so annoying", "label": 0, "kind": "about a champion or the game"}
+{"id": "p-17", "message": "dont feed the enemy kata, play safe till 6", "label": 0, "kind": "harmless trigger words"}
+{"id": "p-18", "message": "report enemy jungle he is afk since 5 min?", "label": 0, "kind": "harmless trigger words"}
+{"id": "p-19", "message": "noob question but when do we take drag", "label": 0, "kind": "harmless trigger words"}
+{"id": "p-20", "message": "kill him bot, he has no flash", "label": 0, "kind": "harmless trigger words"}
+{"id": "p-21", "message": "gg wp everyone, close one", "label": 0, "kind": "friendly banter"}
+{"id": "p-22", "message": "haha nice try lee, almost had me", "label": 0, "kind": "friendly banter"}
+{"id": "p-23", "message": "lmao that flash into wall", "label": 0, "kind": "friendly banter"}
+{"id": "p-24", "message": "u owe me blue for that", "label": 0, "kind": "friendly banter"}
+{"id": "p-25", "message": "mid mia", "label": 0, "kind": "blunt callouts"}
+{"id": "p-26", "message": "stop pushing, jungle is top", "label": 0, "kind": "blunt callouts"}
+{"id": "p-27", "message": "group mid now", "label": 0, "kind": "blunt callouts"}
+{"id": "p-28", "message": "dont fight without me", "label": 0, "kind": "blunt callouts"}
+{"id": "p-29", "message": "gg ez", "label": 1, "kind": "taunting the enemy"}
+{"id": "p-30", "message": "ez lane, go next", "label": 1, "kind": "taunting the enemy"}
+{"id": "p-31", "message": "cry more top", "label": 0, "kind": "taunting the enemy"}
+{"id": "p-32", "message": "1v1 me noob", "label": 1, "kind": "taunting the enemy"}
+{"id": "p-33", "message": "why did you go in alone", "label": 0, "kind": "blame without an insult"}
+{"id": "p-34", "message": "we lost because bot didnt rotate", "label": 0, "kind": "blame without an insult"}
+{"id": "p-35", "message": "jg diff", "label": 1, "kind": "blame without an insult"}
+{"id": "p-36", "message": "who fed kayle", "label": 0, "kind": "blame without an insult"}
+{"id": "p-37", "message": "u r tr4sh", "label": 1, "kind": "disguised insults"}
+{"id": "p-38", "message": "n00b team", "label": 1, "kind": "disguised insults"}
+{"id": "p-39", "message": "go play some other game pls", "label": 1, "kind": "disguised insults"}
+{"id": "p-40", "message": "have u considered tft", "label": 1, "kind": "disguised insults"}

@@ -28,9 +28,23 @@ The best cell made 47 false alarms and 24 misses on E1000 ([errors file](../resu
 
 In one sentence: a prompted frontier model holds a stricter and more context-free standard than League's expert players, so it over-flags banter and misses context-dependent abuse.
 
+## Robustness (the brief's second column)
+
+The full Ablation 1 table, with Spec adherence (F1 on E1000) and Robustness (accuracy on the 40-message pressure set) per model × prompt, is in [results/ablation1.md](../results/ablation1.md). The pressure set was written to trip models (sarcasm, quotes, self-criticism, harmless trigger words, banter, taunts, disguised insults) and labelled by the project author, giving 10 toxic and 30 not. The best E1000 cell is also the most robust: 37 of 40 correct. Its 3 misses are sarcasm or taunts the author labelled fine (`0/6 at 12 min, truly a genius mid`, `nice ward supp, very useful`, `cry more top`), so the pressure set mostly shows that frontier models handle clear-cut trick lines; their problem is the expert standard on real chat.
+
+## Relabel check: whose standard is the gap?
+
+The author relabelled the best cell's 71 disagreements plus 29 agreement controls, blind and with the surrounding chat ([results/relabel_analysis.md](../results/relabel_analysis.md)).
+
+- **On Claude's 47 false alarms, the author sided with the experts 35 times** (10 with Claude, 2 unsure). These lines were labelled fine in the first pass and never revisited; under the paper's rule (toxic if at least 2 of 8 annotators flag it), "fine" means at most 1 of 8 flagged it. So the over-flagging is real: experienced players, the author included, don't treat lines like `just l2p` or `report bot and xin` as toxic.
+- **On Claude's 24 misses, the author sided with Claude 21 times.** 21 of the 24 sit in the dataset's second review pass (`wrongly classified`), and the 2-of-8 rule makes a borderline line toxic. So most "missed toxicity" is lines a single experienced player wouldn't flag.
+- **The author is the most lenient of the three:** of 15 controls where the experts and Claude both said toxic, the author agreed on 9. Agreement on these hard cases is low for everyone (Cohen's kappa 0.16 with the experts, 0.21 with Claude).
+
+This changes the reading of the gap: Claude's false alarms reflect a stricter standard than League players hold, while its misses mostly reflect an inclusive labelling rule. A spec written as explicit rules (feed callouts, plain report calls, self-defence, sarcasm at a teammate) would be more consistent than either.
+
 ## Caveats
 
-- **Part of the gap is the labels.** By our reading, many of the 47 false alarms are plainly hostile (`so useless eve`, `that btch`, `just l2p`), yet are labelled non-toxic. The planned relabelling of the 71 disagreements will measure how much of the gap is annotation rather than model error.
+- **The labels went through two passes.** The `old_label` and `wrongly classified` columns show about 1,526 messages were re-reviewed: 365 flipped toxic to fine, 265 fine to toxic. The paper doesn't describe this pass; this reading of the columns is ours.
 - **The paper's GPT-4o numbers weren't reproduced.** Our gpt-4o run with the paper's exact prompt scored precision 0.615 and recall 0.627 on E1000, against the paper's 0.349 and 0.923 on its own 707-message subset. The subset differs and the `gpt-4o` alias may point to a different snapshot, so this project's numbers stand on their own rather than on the paper's.
 - **Robustness column still to come.** The brief's table also wants Robustness per cell. That needs the hand-written pressure set (sarcasm, quotes, self-criticism, harmless trigger words), run through the same six cells.
 - **Run naming.** The gpt-4o run is named with effort `low`, but no effort is sent to gpt-4o; it runs at temperature 0, as in the paper.

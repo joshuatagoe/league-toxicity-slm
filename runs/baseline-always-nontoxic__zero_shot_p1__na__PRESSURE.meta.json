@@ -1,0 +1,27 @@
+{
+  "cell": "baseline-always-nontoxic__zero_shot_p1__na__PRESSURE",
+  "model": "baseline:always-nontoxic",
+  "strategy": "zero_shot_p1",
+  "effort": "na",
+  "eval_set": "PRESSURE",
+  "limit": null,
+  "eval_sha256": "9378a51b84febe3f78015bbfc9c3c0ecf95c0ad66ed81a2e6f4c93b95eea58ec",
+  "prompt_sha256_12": "71e8123fd288",
+  "git_commit": "09b5bac5179f59891947c14be2b3c38381708aaf",
+  "started_at": "2026-10-29T20:20:50.994513+00:00",
+  "finished_at": "2026-10-29T20:20:50.998417+00:00",
+  "confusion": {
+    "tp": 0,
+    "fp": 0,
+    "tn": 30,
+    "fn": 10,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "accuracy": 0.75,
+    "n": 40
+  }
+}

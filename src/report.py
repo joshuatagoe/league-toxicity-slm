@@ -38,7 +38,7 @@ def cost_per_million(model: str, records: list[dict], prices: dict) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--eval-set", required=True, choices=("E1000", "FULL"))
+    ap.add_argument("--eval-set", required=True, choices=("E1000", "FULL", "PRESSURE"))
     ap.add_argument("--include-limited", action="store_true", help="also report smoke runs (__nN)")
     args = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")  # Windows consoles default to cp1252

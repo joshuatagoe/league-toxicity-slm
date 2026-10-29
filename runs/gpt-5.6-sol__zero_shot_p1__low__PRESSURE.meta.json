@@ -1,0 +1,27 @@
+{
+  "cell": "gpt-5.6-sol__zero_shot_p1__low__PRESSURE",
+  "model": "gpt-5.6-sol",
+  "strategy": "zero_shot_p1",
+  "effort": "low",
+  "eval_set": "PRESSURE",
+  "limit": null,
+  "eval_sha256": "9378a51b84febe3f78015bbfc9c3c0ecf95c0ad66ed81a2e6f4c93b95eea58ec",
+  "prompt_sha256_12": "71e8123fd288",
+  "git_commit": "09b5bac5179f59891947c14be2b3c38381708aaf",
+  "started_at": "2026-10-29T20:20:51.369765+00:00",
+  "finished_at": "2026-10-29T20:21:00.058904+00:00",
+  "confusion": {
+    "tp": 9,
+    "fp": 9,
+    "tn": 21,
+    "fn": 1,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.5,
+    "recall": 0.9,
+    "f1": 0.6428571428571429,
+    "accuracy": 0.75,
+    "n": 40
+  }
+}
