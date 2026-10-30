@@ -7,7 +7,7 @@ Run 2026-10-29. Every number below comes from [results/slm_results.md](../result
 - **Fine-tuning works on the benchmark.** Trained on the 10,919 expert-labelled training messages, the 1.7B model goes from F1 0.468 to 0.718 on `E1000` and from precision 0.466 to 0.823. Both gains have intervals well clear of zero.
 - **The tuned model clears the precision bar and misses the F1 bar.** The shipped model (v2) scores precision 0.857 and F1 0.698 against a bar of 0.80 and 0.75. Claude Opus 5.5's best prompt scored precision 0.624 and F1 0.687, so the 1.7B model matches the best frontier cell on F1 and raises precision by 0.23. It runs at about 0.13 s per message in batches of 32 on a laptop GPU, against the frontier cell's median of 1.3 s per message.
 - **The data fix helped a little, not enough.** 676 teacher-written lines aimed at v1's failures moved the pressure set from 27 to 30 of 40 and left the benchmark where it was. Sarcasm and taunts are still mostly missed.
-- **More expert data stopped helping at about 5,500 rows.** Doubling from 5,459 to 10,919 rows changed F1 by +0.010 (interval −0.03 to +0.05). No size reached the F1 bar.
+- **More expert data stopped helping at about 5,500 rows in this curve.** Doubling from 5,459 to 10,919 rows changed F1 by +0.010 (interval −0.03 to +0.05). No size reached the F1 bar.
 
 ## Base vs tuned
 
@@ -83,9 +83,9 @@ A second fix would weight the teacher lines more heavily or train for more epoch
 
 - **No size meets the bar,** so under that rule there is no minimum viable N on this data. Every size from 1,364 rows up clears the precision bar. None reaches F1 0.75.
 - **F1 climbs steeply, then flattens.** It rises by 0.29 from 1,364 to 2,729 rows and by 0.07 from 2,729 to 5,459. From 5,459 to 10,919 it rises by 0.010, with an interval from −0.03 to +0.05. Half the data gives the same F1 within noise.
-- **Robustness doesn't move with size** (0.675–0.700). The pressure behaviours aren't in the expert data, so more of it doesn't teach them.
+- **Robustness doesn't improve with size.** It stays between 0.675 and 0.700, one line either way. A likely reason is that the pressure behaviours are rare in the expert data.
 
-**The working minimum is about 5,500 expert-labelled rows.** That is where F1 stops improving. Going further takes different data, not more of the same. For the final submission, the curve gets a second seed per size and a score on the staff held-out set.
+**About 5,500 expert-labelled rows is where F1 stops improving in this curve.** With four sizes and one seed, that is an estimate, not a measured minimum: no size between 2,729 and 5,459 was tried. Different data may help more than more of the same, but the one test of that so far (v2) didn't move F1. For the final submission, the curve gets a second seed per size and a score on the staff held-out set.
 
 ## Scoring: exact match, not an LLM judge
 

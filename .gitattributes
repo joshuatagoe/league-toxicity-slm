@@ -1,2 +1,4 @@
 # Keep LF everywhere so the SHA-256 hashes in data/manifest.json hold on every checkout.
 * text=auto eol=lf
+*.mp4 binary
+*.png binary

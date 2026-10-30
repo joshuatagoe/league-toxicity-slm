@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>League chat toxicity demo</title>
+<style>
+  :root {
+    --bg: #f6f5f2; --panel: #ffffff; --ink: #16181b; --ink2: #50545a; --muted: #80848a; --line: #e2e0da;
+    --accent: #2a5bd7; --ok: #0a7d33; --ok-bg: #e8f5ec; --bad: #c0262d; --bad-bg: #fcebec;
+    --tox: #8a3b00; --tox-bg: #fff1e6; --tox-bd: #f0b182; --non: #2b4a6b; --non-bg: #edf2f8; --non-bd: #b7c6d8;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 28px; background: var(--panel); border-bottom: 1px solid var(--line); }
+  h1 { margin: 0; font-size: 22px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink2); font-size: 14px; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .chip { font-size: 13px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--ink2); white-space: nowrap; }
+  .chip b { color: var(--ink); }
+  nav { display: flex; gap: 4px; padding: 0 28px; background: var(--panel); border-bottom: 1px solid var(--line); }
+  nav button { border: 0; background: none; font: inherit; font-weight: 600; color: var(--ink2); padding: 10px 14px; border-bottom: 3px solid transparent; cursor: pointer; }
+  nav button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+  main { padding: 18px 28px 28px; max-width: 1280px; margin: 0 auto; }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  input[type=text] { flex: 1; min-width: 280px; font: inherit; font-size: 18px; padding: 10px 14px; border: 1px solid #c9c6bd; border-radius: 10px; background: var(--panel); }
+  input[type=text]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .btn { font: inherit; font-weight: 600; padding: 10px 18px; border-radius: 10px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
+  .btn.ghost { background: var(--panel); color: var(--ink); border-color: #c9c6bd; font-weight: 500; padding: 8px 14px; }
+  .btn.ghost.on { border-color: var(--accent); color: var(--accent); background: #eef2fd; }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .sets { margin-top: 12px; }
+  .sets .label { color: var(--muted); font-size: 14px; margin-right: 4px; }
+  .card { margin-top: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .card h2 { margin: 0; font-size: 18px; }
+  .note { color: var(--ink2); font-size: 14px; margin-top: 2px; }
+  #thinking { color: var(--accent); font-weight: 600; margin-left: auto; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  th { text-align: left; font-size: 13px; color: var(--muted); font-weight: 600; padding: 6px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  td { padding: 5px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  td.msg { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 16px; }
+  .v { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 8px; font-weight: 600; font-size: 15px; border: 1px solid; white-space: nowrap; }
+  .v.toxic { color: var(--tox); background: var(--tox-bg); border-color: var(--tox-bd); }
+  .v.nontoxic { color: var(--non); background: var(--non-bg); border-color: var(--non-bd); }
+  .v.fail { color: var(--ink2); background: var(--bg); border-color: var(--line); font-weight: 500; }
+  td.ok { background: var(--ok-bg); } td.bad { background: var(--bad-bg); }
+  .mark { font-weight: 700; margin-right: 4px; } td.ok .mark { color: var(--ok); } td.bad .mark { color: var(--bad); }
+  .stored { color: var(--muted); font-weight: 500; font-size: 12px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .num { font-variant-numeric: tabular-nums; text-align: right; }
+  td.pass { color: var(--ok); font-weight: 700; }
+  tr.ours td:first-child { font-weight: 600; }
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 14px; margin-top: 10px; }
+  .kv dt { color: var(--muted); } .kv dd { margin: 0; font-family: ui-monospace, Consolas, monospace; font-size: 13px; word-break: break-all; }
+  code.cmd { display: block; margin-top: 10px; padding: 10px 12px; background: #16181b; color: #e9e7e1; border-radius: 8px; font-size: 12.5px; white-space: pre-wrap; word-break: break-all; }
+  img.curve { width: 100%; border-radius: 8px; border: 1px solid var(--line); display: block; }
+  .flips { margin-top: 10px; font-size: 14px; color: var(--ink2); }
+  #resBody tr:hover td, #outBody tr:hover td.msg { background: #eef2fd; }
+  .spec { font-size: 18px; line-height: 1.5; margin: 10px 0 0; padding-left: 14px; border-left: 3px solid var(--accent); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>League chat toxicity</h1>
+    <div class="sub">Qwen3-1.7B with a LoRA adapter. One chat line in, one word out: <b>toxic</b> or <b>nontoxic</b>.</div>
+  </div>
+  <div class="chips" id="chips"></div>
+</header>
+<nav role="tablist">
+  <button role="tab" aria-selected="true" data-tab="try">Try it</button>
+  <button role="tab" aria-selected="false" data-tab="results">Results</button>
+</nav>
+<main>
+  <section id="try">
+    <form class="row" id="form">
+      <input type="text" id="line" placeholder="Type a League chat line…" autocomplete="off" maxlength="300">
+      <button class="btn" id="go" type="submit">Label it</button>
+    </form>
+    <div class="row sets" id="sets"><span class="label">Example sets:</span><span id="thinking" aria-live="polite"></span></div>
+    <div class="card" id="spec">
+      <h2>Behaviour spec</h2>
+      <p class="spec">Given one League of Legends chat line, the model replies with exactly one word, <b>toxic</b> or <b>nontoxic</b>. It says toxic only when the line attacks, mocks or demeans a player (insults, including disguised or non-English ones; sarcasm or taunts aimed at someone; "diff" put-downs), and nontoxic for game talk, callouts, self-criticism, quoting or reporting someone, swearing at the game, friendly banter, and telling a flamer to stop.</p>
+      <div class="note" style="margin-top:12px">A reply passes only if it is exactly one of the two words and matches the line's label. Bar, set before any run: precision ≥ 0.80 and F1 ≥ 0.75 on 1,000 real benchmark lines.</div>
+    </div>
+    <div class="card" id="out" hidden>
+      <h2 id="outTitle"></h2>
+      <div class="note" id="outNote"></div>
+      <table><thead id="outHead"></thead><tbody id="outBody"></tbody></table>
+    </div>
+  </section>
+  <section id="results" hidden>
+    <div class="grid">
+      <div>
+        <div class="card" style="margin-top:0">
+          <h2>Benchmark and pressure set</h2>
+          <div class="note">E1000: 1,000 real test lines, expert labels, 102 toxic. Pressure set: 40 hard lines labelled under the written rules. Bar, set before any run: precision ≥ 0.80 and F1 ≥ 0.75.</div>
+          <table><thead><tr><th>Model</th><th class="num">Precision</th><th class="num">Recall</th><th class="num">F1</th><th class="num">Pressure</th></tr></thead><tbody id="resBody"></tbody></table>
+          <div class="flips" id="flips"></div>
+        </div>
+        <div class="card">
+          <h2>Public checkpoint</h2>
+          <dl class="kv" id="ckpt"></dl>
+          <code class="cmd" id="cmd"></code>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-top:0">
+          <h2>More expert data stops helping</h2>
+          <div class="note">v1 trained on nested subsets of the expert-labelled data, one seed each.</div>
+          <img class="curve" src="/data_efficiency.svg" alt="Data-efficiency curve: F1 on E1000 rises from 0.344 at 1,364 rows to 0.718 at 10,919 and stays under the 0.75 bar; pressure-set accuracy stays between 0.675 and 0.700." style="margin-top:10px">
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+const NAMES = { untrained: 'Untrained', v1: 'v1', v2: 'v2' };
+let info = null;
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+function verdictCell(answer, gold) {
+  const td = el('td');
+  const lab = answer && answer.label;
+  if (gold) td.className = lab === gold ? 'ok' : 'bad';
+  if (gold) td.appendChild(el('span', 'mark', lab === gold ? '✓' : '✗'));
+  td.appendChild(lab ? el('span', 'v ' + lab, lab) : el('span', 'v fail', 'no answer: "' + ((answer && answer.raw) || '') + '"'));
+  return td;
+}
+
+function render(title, note, lines, answers, models, withGold, claude) {
+  $('out').hidden = false;
+  $('spec').hidden = true;
+  $('outTitle').textContent = title;
+  $('outNote').textContent = note;
+  const head = el('tr');
+  head.appendChild(el('th', null, 'Chat line'));
+  if (withGold) head.appendChild(el('th', null, 'Label'));
+  for (const m of models) head.appendChild(el('th', null, NAMES[m]));
+  if (claude) { const th = el('th', null, 'Claude Opus 5.5 '); th.appendChild(el('span', 'stored', '(eval run)')); head.appendChild(th); }
+  $('outHead').replaceChildren(head);
+  const rows = lines.map((l, i) => {
+    const tr = el('tr');
+    tr.appendChild(el('td', 'msg', l.message));
+    if (withGold) { const td = el('td'); td.appendChild(el('span', 'v ' + l.gold, l.gold)); tr.appendChild(td); }
+    for (const m of models) tr.appendChild(verdictCell(answers[m][i], withGold ? l.gold : null));
+    if (claude) tr.appendChild(verdictCell({ label: l.claude }, l.gold));
+    return tr;
+  });
+  $('outBody').replaceChildren(...rows);
+}
+
+async function labelLines(lines) {
+  $('thinking').textContent = `Labelling with ${info.models.length} models…`;
+  $('thinking').setAttribute('aria-busy', 'true');
+  $('go').disabled = true;
+  try {
+    const r = await fetch('/api/label', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ lines }) });
+    return await r.json();
+  } finally {
+    $('thinking').textContent = '';
+    $('thinking').removeAttribute('aria-busy');
+    $('go').disabled = false;
+  }
+}
+
+const typed = [];
+const typedAnswers = {};
+$('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const line = $('line').value.trim();
+  if (!line) return;
+  document.querySelectorAll('#sets .btn').forEach((b) => b.classList.remove('on'));
+  const res = await labelLines([line]);
+  typed.unshift({ message: line });
+  for (const m of res.models) (typedAnswers[m] = typedAnswers[m] || []).unshift(res.answers[m][0]);
+  render('Your lines', `Typed live, newest first. Not from any eval set, so there is no label. About ${Math.round(res.ms_per_line_per_model)} ms per line per model on this GPU.`,
+    typed, typedAnswers, res.models, false, false);
+  $('line').value = '';
+});
+
+async function showSet(s, btn) {
+  document.querySelectorAll('#sets .btn').forEach((b) => b.classList.toggle('on', b === btn));
+  const res = await labelLines(s.lines.map((l) => l.message));
+  render(s.title, `${s.note} From ${s.source}; labels by ${s.label_by}.`, s.lines, res.answers, res.models, true, s.key !== 'benchmark');
+}
+
+function showResults() {
+  const r = info.results;
+  const fmt = (v, bar) => { const td = el('td', 'num' + (bar != null && v >= bar ? ' pass' : ''), v.toFixed(3)); return td; };
+  $('resBody').replaceChildren(...r.rows.map((row, i) => {
+    const tr = el('tr', i > 0 && i < 3 ? 'ours' : null);
+    tr.appendChild(el('td', null, row.name));
+    tr.appendChild(fmt(row.precision, r.bar.precision));
+    tr.appendChild(fmt(row.recall));
+    tr.appendChild(fmt(row.f1, r.bar.f1));
+    tr.appendChild(el('td', 'num', `${row.pressure}/${row.pressure_n}`));
+    return tr;
+  }));
+  $('flips').textContent = `On the 1,000 benchmark lines, v2 fixes ${r.flips.untrained_wrong_v2_right} of the untrained model's mistakes and makes ${r.flips.untrained_right_v2_wrong} new ones. Green: meets the bar.`;
+  const c = r.checkpoint;
+  $('ckpt').replaceChildren(...[['Adapter', `${c.repo} @ ${c.revision}`], ['Base', `${c.base} @ ${c.base_revision}`]]
+    .flatMap(([k, v]) => [el('dt', null, k), el('dd', null, v)]));
+  $('cmd').textContent = `python eval.py --model ${c.repo} --revision ${c.revision} --eval-set data/eval/E1000.jsonl`;
+}
+
+document.querySelectorAll('nav button').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('nav button').forEach((x) => x.setAttribute('aria-selected', x === b ? 'true' : 'false'));
+  $('try').hidden = b.dataset.tab !== 'try';
+  $('results').hidden = b.dataset.tab !== 'results';
+}));
+
+(async () => {
+  info = await (await fetch('/api/info')).json();
+  const chip = (b, rest) => { const c = el('span', 'chip'); c.appendChild(el('b', null, b)); c.append(' ' + rest); return c; };
+  $('chips').replaceChildren(
+    chip('Untrained', 'Qwen3-1.7B'),
+    ...(info.models.includes('v1') ? [chip('v1', '10,919 expert rows')] : []),
+    chip('v2', 'public, ' + info.results.checkpoint.revision.slice(0, 7)));
+  for (const s of info.sets) {
+    const b = el('button', 'btn ghost', s.title);
+    b.type = 'button';
+    b.addEventListener('click', () => showSet(s, b));
+    $('sets').insertBefore(b, $('thinking'));
+  }
+  showResults();
+})();
+</script>
+</body>
+</html>

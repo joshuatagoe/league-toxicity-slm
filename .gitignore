@@ -5,3 +5,12 @@ __pycache__/
 data/raw/
 .venv-train/
 models/
+# Demo video working files (the finished video is docs/walkthrough.mp4)
+demo/video/raw/
+demo/video/raw.webm
+demo/video/waits.json
+demo/video/sheet*.png
+demo/video/tones/
+demo/video/clips/
+demo/video/walkthrough.mp4
+demo/video/walkthrough-voiced.mp4

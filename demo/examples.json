@@ -1,0 +1,29 @@
+{
+  "_note": "Example lines for the demo page. Each set names the eval file its lines come from; the label is that file's label.",
+  "sets": [
+    {
+      "key": "benchmark",
+      "title": "Real chat the untrained model gets wrong",
+      "source": "data/eval/E1000.jsonl",
+      "label_by": "expert annotators",
+      "note": "Picked from the lines where the untrained model is wrong and both tuned models are right, leaving out slurs.",
+      "ids": ["14941", "3986", "13131", "8859", "7705", "2979", "12690", "11568"]
+    },
+    {
+      "key": "fixed",
+      "title": "Pressure lines the v2 data fixed",
+      "source": "data/pressure/PRESSURE.jsonl",
+      "label_by": "the author, under docs/LABELING_RULES.md",
+      "note": "Every pressure line where v1 and v2 differ.",
+      "ids": ["p-15", "p-31", "p-35"]
+    },
+    {
+      "key": "missed",
+      "title": "What v2 still misses",
+      "source": "data/pressure/PRESSURE.jsonl",
+      "label_by": "the author, under docs/LABELING_RULES.md",
+      "note": "Sarcasm, taunts and polite put-downs. Claude's answers come from its eval run, not a live call.",
+      "ids": ["p-01", "p-29", "p-39", "p-40"]
+    }
+  ]
+}

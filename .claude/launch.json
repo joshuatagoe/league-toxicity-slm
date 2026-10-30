@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "demo",
+      "runtimeExecutable": ".venv-train/Scripts/python.exe",
+      "runtimeArgs": ["-u", "demo/server.py"],
+      "port": 8780
+    },
+    {
+      "name": "studio",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-I", "demo/video/studio.py", "--video", "docs/walkthrough.mp4", "--sections", "demo/video/sections.json",
+                      "--script", "docs/walkthrough-script.md", "--clips", "demo/video/clips"],
+      "port": 8770
+    }
+  ]
+}

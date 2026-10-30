@@ -35,6 +35,20 @@ python eval.py --model Juchen/league-toxicity-qwen3-1.7b --revision 80e3d1bac950
 
 Use `--eval-set data/pressure/PRESSURE.jsonl` for the pressure set, or `--model Qwen/Qwen3-1.7B` for the untrained base. Run from the Hub this way, the adapter gave the same answer as the local run on all 1,000 `E1000` messages and all 40 pressure lines (`runs/qwen3-1.7b-v2-hub__*`).
 
+## Demo
+
+[docs/walkthrough.mp4](docs/walkthrough.mp4) is a 4:43 walkthrough of the tuned model next to the untrained one. It is silent; the narration is in [docs/walkthrough-script.md](docs/walkthrough-script.md). To run the page it records (needs a CUDA GPU and the training environment):
+
+```
+.venv-train/Scripts/python demo/server.py
+```
+
+Then open http://127.0.0.1:8780. The server loads Qwen3-1.7B once in bf16 and attaches the public v2 adapter at its pinned commit, plus v1 if `models/` has it. The untrained column is the same weights with the adapters switched off. Prompt, chat template and greedy decoding are the ones `eval.py` uses: the page's answers matched the eval runs on all 40 pressure lines and the 8 benchmark lines it shows. The Claude column is read from Claude's eval run, not called live.
+
+One caveat: on borderline lines, the untrained model's answer can change with the other lines in its batch (bf16 with left padding). One benchmark line did this, so the example set uses lines whose answers held both in the set and alone.
+
+`demo/video/` holds the recorder (`record.cjs`, Playwright) and the narration studio. To record the voice-over, run `python -I demo/video/studio.py --video docs/walkthrough.mp4 --sections demo/video/sections.json --script docs/walkthrough-script.md --clips demo/video/clips` and open http://127.0.0.1:8770.
+
 ## Reports
 
 | Report | What it covers |

@@ -1,0 +1,50 @@
+{
+ "duration": 283.27,
+ "sections": [
+  {
+   "id": "00",
+   "title": "League chat toxicity: a 1.7B model vs prompting",
+   "start": 0.58
+  },
+  {
+   "id": "01",
+   "title": "1. Prompting has a ceiling",
+   "start": 38.21
+  },
+  {
+   "id": "02",
+   "title": "2. The untrained model misjudges real chat",
+   "start": 69.08
+  },
+  {
+   "id": "03",
+   "title": "3. Lines it has never seen, typed live",
+   "start": 104.66
+  },
+  {
+   "id": "04",
+   "title": "4. A data fix for what v1 got wrong",
+   "start": 138.34
+  },
+  {
+   "id": "05",
+   "title": "5. What it still misses",
+   "start": 173.6
+  },
+  {
+   "id": "06",
+   "title": "6. More expert data stops helping",
+   "start": 203.85
+  },
+  {
+   "id": "07",
+   "title": "7. The numbers, and how to check them",
+   "start": 237.64
+  },
+  {
+   "id": "08",
+   "title": "Thanks for watching",
+   "start": 274.25
+  }
+ ]
+}
