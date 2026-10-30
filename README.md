@@ -37,7 +37,7 @@ Use `--eval-set data/pressure/PRESSURE.jsonl` for the pressure set, or `--model 
 
 ## Demo
 
-[docs/walkthrough.mp4](docs/walkthrough.mp4) is a 4:43 walkthrough of the tuned model next to the untrained one. It is silent; the narration is in [docs/walkthrough-script.md](docs/walkthrough-script.md). To run the page it records (needs a CUDA GPU and the training environment):
+**Video: [youtube.com/watch?v=yJ5kVQjnCCw](https://www.youtube.com/watch?v=yJ5kVQjnCCw)**, a narrated walkthrough of the tuned model next to the untrained one (also in the repo as [docs/walkthrough-voiced.mp4](docs/walkthrough-voiced.mp4); the silent cut is [docs/walkthrough.mp4](docs/walkthrough.mp4) and the script is [docs/walkthrough-script.md](docs/walkthrough-script.md)). To run the page it records (needs a CUDA GPU and the training environment):
 
 ```
 .venv-train/Scripts/python demo/server.py
@@ -53,6 +53,8 @@ One caveat: on borderline lines, the untrained model's answer can change with th
 
 | Report | What it covers |
 | --- | --- |
+| [docs/BRAINLIFT.md](docs/BRAINLIFT.md) | The thesis and whether data → behaviour held (draft) |
+| [docs/DATASET.md](docs/DATASET.md) | Every training and eval file: shape, source, who labelled it, and which rows are teacher-written |
 | [docs/SLM_REPORT.md](docs/SLM_REPORT.md) | Base vs tuned, the v2 data fix, the data-efficiency curve (Ablation 2), why scoring is exact match, the smoke test |
 | [docs/CEILING_REPORT.md](docs/CEILING_REPORT.md) and [results/ablation1.md](results/ablation1.md) | The prompt-ceiling ablation (Ablation 1) and its failure mode |
 | [results/slm_results.md](results/slm_results.md) | Generated tables behind the small-model report, with paired intervals (`scripts/slm_results.py`) |
