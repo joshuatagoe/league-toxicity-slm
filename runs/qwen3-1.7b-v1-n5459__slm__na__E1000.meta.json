@@ -1,0 +1,29 @@
+{
+  "cell": "qwen3-1.7b-v1-n5459__slm__na__E1000",
+  "model": "qwen3-1.7b-v1-n5459",
+  "model_ref": "models/qwen3-1.7b-v1-n5459",
+  "revision": null,
+  "strategy": "slm",
+  "effort": "na",
+  "eval_set": "E1000",
+  "limit": null,
+  "quantization": "bf16",
+  "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91",
+  "git_commit": "50a517567df996003a64087bc207ae8b3a4a825a",
+  "finished_at": "2026-10-29T22:17:18.419695+00:00",
+  "per_message_ms": 129.0,
+  "confusion": {
+    "tp": 62,
+    "fp": 11,
+    "tn": 887,
+    "fn": 40,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.8493150684931506,
+    "recall": 0.6078431372549019,
+    "f1": 0.7085714285714284,
+    "accuracy": 0.949,
+    "n": 1000
+  }
+}

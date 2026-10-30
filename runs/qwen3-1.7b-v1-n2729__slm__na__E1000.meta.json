@@ -7,22 +7,23 @@
   "effort": "na",
   "eval_set": "E1000",
   "limit": null,
+  "quantization": "bf16",
   "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91",
-  "git_commit": "7edd04f44bf75cfa4a3320849cf0ad7b8d1819a3",
-  "finished_at": "2026-10-29T21:15:27.876708+00:00",
-  "per_message_ms": 233.4,
+  "git_commit": "50a517567df996003a64087bc207ae8b3a4a825a",
+  "finished_at": "2026-10-29T22:27:47.106400+00:00",
+  "per_message_ms": 128.2,
   "confusion": {
-    "tp": 49,
-    "fp": 6,
-    "tn": 892,
-    "fn": 53,
+    "tp": 51,
+    "fp": 7,
+    "tn": 891,
+    "fn": 51,
     "failures": {}
   },
   "scores": {
-    "precision": 0.8909090909090909,
-    "recall": 0.4803921568627451,
-    "f1": 0.6242038216560509,
-    "accuracy": 0.941,
+    "precision": 0.8793103448275862,
+    "recall": 0.5,
+    "f1": 0.6375,
+    "accuracy": 0.942,
     "n": 1000
   }
 }

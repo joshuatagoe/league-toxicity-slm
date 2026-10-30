@@ -6,6 +6,19 @@ The first milestone is the **prompt-ceiling gate**: do current frontier models s
 
 **Gate result (2026-10-29): passed.** The best of six model × prompt cells (Claude Opus 5.5, zero-shot) reached precision 0.594 and F1 0.666 on the full test split, below the bar. Details in [docs/CEILING_REPORT.md](docs/CEILING_REPORT.md).
 
+## Behaviour spec
+
+> Given one League of Legends chat line, the model replies with exactly one word, `toxic` or `nontoxic`. It says `toxic` only when the line attacks, mocks or demeans a player (insults, including disguised or non-English ones; sarcasm or taunts aimed at someone; "diff" put-downs), and `nontoxic` for game talk, callouts, self-criticism, quoting or reporting someone, swearing at the game, friendly banter, and telling a flamer to stop.
+
+**How a reply is marked.** A reply passes if it is exactly one of the two words and matches the line's label; anything else (another word, an explanation, no reply) fails. The full rules, with examples, are in [docs/LABELING_RULES.md](docs/LABELING_RULES.md).
+
+| Measure | Eval set | Labels from |
+| --- | --- | --- |
+| Spec adherence: precision and F1 for `toxic` | `E1000`, the first 1,000 test messages | The L2DTnH expert annotators |
+| Robustness: accuracy | `PRESSURE`, 40 hand-picked hard lines, 4 per rule | The project author, under the written rules |
+
+The expert labels and the written rules disagree on some lines (see [results/relabel_analysis.md](results/relabel_analysis.md)). `E1000` is scored against the experts so the numbers stay comparable with the paper; the pressure set checks the rules the experts didn't write down.
+
 ## The bar (set before any run)
 
 | Metric (toxic = positive class) | Bar | Source |
