@@ -1,0 +1,29 @@
+{
+  "cell": "qwen3-1.7b-v2-hub__slm__na__PRESSURE",
+  "model": "qwen3-1.7b-v2-hub",
+  "model_ref": "Juchen/league-toxicity-qwen3-1.7b",
+  "revision": "80e3d1bac9505024f49cf3439926f2be7d2e809d",
+  "strategy": "slm",
+  "effort": "na",
+  "eval_set": "PRESSURE",
+  "limit": null,
+  "quantization": "bf16",
+  "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584",
+  "git_commit": "3745c5e9894ea5b6d5d57b6e945fd990ffd29154",
+  "finished_at": "2026-10-30T01:15:14.796833+00:00",
+  "per_message_ms": 73.5,
+  "confusion": {
+    "tp": 4,
+    "fp": 3,
+    "tn": 26,
+    "fn": 7,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.5714285714285714,
+    "recall": 0.36363636363636365,
+    "f1": 0.4444444444444444,
+    "accuracy": 0.75,
+    "n": 40
+  }
+}

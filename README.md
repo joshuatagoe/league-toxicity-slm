@@ -19,6 +19,22 @@ The first milestone is the **prompt-ceiling gate**: do current frontier models s
 
 The expert labels and the written rules disagree on some lines (see [results/relabel_analysis.md](results/relabel_analysis.md)). `E1000` is scored against the experts so the numbers stay comparable with the paper; the pressure set checks the rules the experts didn't write down.
 
+## Model checkpoint and pinned versions
+
+| What | Pinned to |
+| --- | --- |
+| Tuned model (v2 LoRA adapter, public) | [Juchen/league-toxicity-qwen3-1.7b](https://huggingface.co/Juchen/league-toxicity-qwen3-1.7b) at commit `80e3d1bac9505024f49cf3439926f2be7d2e809d` |
+| Base model | [Qwen/Qwen3-1.7B](https://huggingface.co/Qwen/Qwen3-1.7B) at commit `70d244cc86ccca08cf5af4e1e306ecf908b1ad5e` |
+| Eval code | this repo at commit `3745c5e9894ea5b6d5d57b6e945fd990ffd29154` |
+
+One command per eval set, in the training environment (`requirements-train.txt`):
+
+```
+python eval.py --model Juchen/league-toxicity-qwen3-1.7b --revision 80e3d1bac9505024f49cf3439926f2be7d2e809d --eval-set data/eval/E1000.jsonl
+```
+
+Use `--eval-set data/pressure/PRESSURE.jsonl` for the pressure set, or `--model Qwen/Qwen3-1.7B` for the untrained base. Run from the Hub this way, the adapter gave the same answer as the local run on all 1,000 `E1000` messages and all 40 pressure lines (`runs/qwen3-1.7b-v2-hub__*`).
+
 ## The bar (set before any run)
 
 | Metric (toxic = positive class) | Bar | Source |
