@@ -35,6 +35,16 @@ python eval.py --model Juchen/league-toxicity-qwen3-1.7b --revision 80e3d1bac950
 
 Use `--eval-set data/pressure/PRESSURE.jsonl` for the pressure set, or `--model Qwen/Qwen3-1.7B` for the untrained base. Run from the Hub this way, the adapter gave the same answer as the local run on all 1,000 `E1000` messages and all 40 pressure lines (`runs/qwen3-1.7b-v2-hub__*`).
 
+## Reports
+
+| Report | What it covers |
+| --- | --- |
+| [docs/SLM_REPORT.md](docs/SLM_REPORT.md) | Base vs tuned, the v2 data fix, the data-efficiency curve (Ablation 2), why scoring is exact match, the smoke test |
+| [docs/CEILING_REPORT.md](docs/CEILING_REPORT.md) and [results/ablation1.md](results/ablation1.md) | The prompt-ceiling ablation (Ablation 1) and its failure mode |
+| [results/slm_results.md](results/slm_results.md) | Generated tables behind the small-model report, with paired intervals (`scripts/slm_results.py`) |
+| [results/train_logs/](results/train_logs/) | Every training run's settings, data hash, loss, steps and code commit |
+| [results/smoke.log](results/smoke.log) | `bash train/smoke.sh`: teacher generation, training and eval on a small batch, end to end |
+
 ## The bar (set before any run)
 
 | Metric (toxic = positive class) | Bar | Source |

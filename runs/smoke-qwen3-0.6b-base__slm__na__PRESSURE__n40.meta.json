@@ -1,0 +1,29 @@
+{
+  "cell": "smoke-qwen3-0.6b-base__slm__na__PRESSURE__n40",
+  "model": "smoke-qwen3-0.6b-base",
+  "model_ref": "Qwen/Qwen3-0.6B",
+  "revision": null,
+  "strategy": "slm",
+  "effort": "na",
+  "eval_set": "PRESSURE",
+  "limit": 40,
+  "quantization": "bf16",
+  "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584",
+  "git_commit": "7f855bf1c1eda7d39598a12269b5c0284c3010f9",
+  "finished_at": "2026-10-30T02:32:50.164572+00:00",
+  "per_message_ms": 90.4,
+  "confusion": {
+    "tp": 3,
+    "fp": 16,
+    "tn": 13,
+    "fn": 8,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.15789473684210525,
+    "recall": 0.2727272727272727,
+    "f1": 0.19999999999999998,
+    "accuracy": 0.4,
+    "n": 40
+  }
+}

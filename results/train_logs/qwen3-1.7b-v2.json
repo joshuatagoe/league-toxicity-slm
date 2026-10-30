@@ -1,0 +1,31 @@
+{
+  "base_model": "Qwen/Qwen3-1.7B",
+  "train_file": "data/sft/train_v2.jsonl",
+  "train_sha256": "290ff9257054cba1f6fd3daba28ea5c076f210d7d45ddfac9e2271357aea5ed6",
+  "n": 11595,
+  "toxic": 1275,
+  "args": {
+    "base_model": "Qwen/Qwen3-1.7B",
+    "train_file": "data/sft/train_v2.jsonl",
+    "n": null,
+    "out": "models/qwen3-1.7b-v2",
+    "epochs": 1.0,
+    "max_steps": -1,
+    "lr": 0.0002,
+    "rank": 16,
+    "alpha": 16,
+    "batch": 16,
+    "grad_accum": 1,
+    "max_length": 256,
+    "seed": 3407
+  },
+  "train_loss": 0.06789036008818396,
+  "steps": 725,
+  "minutes": 96.9,
+  "git_commit": "50a517567df996003a64087bc207ae8b3a4a825a",
+  "versions": {
+    "torch": "2.14.1+cu126",
+    "trl": "1.17.0",
+    "peft": "0.21.2"
+  }
+}

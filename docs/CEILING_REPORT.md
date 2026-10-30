@@ -16,7 +16,7 @@ The top of the precision interval is 0.64 on the full test split, well under 0.8
 ## What the grid showed
 
 - **The newest OpenAI model is no better than a keyword list.** GPT-5.6 Sol scored F1 0.554–0.568 across the three prompts; the keyword rule scored 0.558 on E1000.
-- **More instructions made both families worse.** The few-shot and structured prompts carry the annotators' guideline, including "a message counts as toxic if even a couple of experienced players would find it offensive". They raised recall and cut precision: Claude Opus 5.5 fell from 0.624 to 0.351 (few-shot) and 0.346 (structured). The simplest prompt was the best for both models.
+- **More instructions made Claude worse and didn't help GPT.** The few-shot and structured prompts carry the annotators' guideline, including "a message counts as toxic if even a couple of experienced players would find it offensive". For Claude Opus 5.5 they raised recall and cut precision from 0.624 to 0.351 (few-shot) and 0.346 (structured). GPT-5.6 Sol's precision stayed at 0.415–0.419 under all three prompts, and its F1 moved by less than its intervals (0.554–0.568). The simplest prompt was Claude's best and within noise of GPT's best.
 - **Cost and speed.** The best frontier cell costs about $940 per million messages at a median 1.3 s per message.
 
 ## The failure that survives the best prompt
@@ -48,5 +48,4 @@ This changes the reading of the gap: Claude's false alarms reflect a stricter st
 
 - **The labels went through two passes.** The `old_label` and `wrongly classified` columns show about 1,526 messages were re-reviewed: 365 flipped toxic to fine, 265 fine to toxic. The paper doesn't describe this pass; this reading of the columns is ours.
 - **The paper's GPT-4o numbers weren't reproduced.** Our gpt-4o run with the paper's exact prompt scored precision 0.615 and recall 0.627 on E1000, against the paper's 0.349 and 0.923 on its own 707-message subset. The subset differs and the `gpt-4o` alias may point to a different snapshot, so this project's numbers stand on their own rather than on the paper's.
-- **Robustness column still to come.** The brief's table also wants Robustness per cell. That needs the hand-written pressure set (sarcasm, quotes, self-criticism, harmless trigger words), run through the same six cells.
 - **Run naming.** The gpt-4o run is named with effort `low`, but no effort is sent to gpt-4o; it runs at temperature 0, as in the paper.

@@ -1,0 +1,48 @@
+[21:30:18] 1/4 teacher writes lines for two categories, gated by dedupe, leakage and a critic
+generated 20 lines from 2 teacher calls
+after dedupe, length and leakage checks: 20 (dropped {'duplicate': 0, 'length': 0, 'in_eval': 0, 'near_pressure': 0, 'in_train': 0})
+{
+  "teacher": "claude-opus-5-5",
+  "critic": "gpt-5.6-sol",
+  "seed": 2026,
+  "calls": 2,
+  "generated": 20,
+  "dropped": {
+    "duplicate": 0,
+    "length": 0,
+    "in_eval": 0,
+    "near_pressure": 0,
+    "in_train": 0
+  },
+  "kept": 20,
+  "disputed": 0,
+  "cost_usd_list_price": 0.03,
+  "kept_by_category": {
+    "sarcasm_at_teammate": 10,
+    "quote_or_report": 10
+  },
+  "disputed_by_category": {
+    "sarcasm_at_teammate": 0,
+    "quote_or_report": 0
+  }
+}
+[21:30:35] 2/4 mix them with 240 expert-labelled rows
+train_smoke.jsonl: 260 rows (240 v1 + 20 teacher), 29 toxic (11.2%)
+[21:30:35] 3/4 QLoRA, 16 steps
+W1029 21:31:09.906000 12096 Lib\site-packages\torch\utils\flop_counter.py:113] triton not found; flop counting will not work for triton kernels
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+columns: ['prompt', 'completion', 'input_ids', 'labels']
+first example, full text: 'xic or nontoxic.<|im_end|>\n<|im_start|>user\nim oom<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nnontoxic<|im_end|>'
+first example, trained tokens: 'nontoxic<|im_end|>'
+{'loss': '0.2203', 'grad_norm': '0.2188', 'learning_rate': '8.955e-05', 'entropy': '0.1094', 'mean_token_accuracy': '0.9437', 'num_tokens': '9969', 'epoch': '0.5882'}
+{'train_runtime': '18.88', 'train_samples_per_second': '13.56', 'train_steps_per_second': '0.848', 'train_loss': '0.1701', 'entropy': '0.07372', 'mean_token_accuracy': '0.9729', 'num_tokens': '1.592e+04', 'epoch': '0.9412'}
+{"n": 260, "toxic": 29, "train_loss": 0.17010371759533882, "steps": 16, "minutes": 0.3}
+[21:31:48] 4/4 score base and tuned on the first 50 benchmark lines and the pressure set
+smoke-qwen3-0.6b-base__slm__na__E1000__n50: precision 0.167  recall 0.333  f1 0.222  accuracy 0.720  n 50  failures {}  44.8 ms/message
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+smoke-qwen3-0.6b-base__slm__na__PRESSURE__n40: precision 0.158  recall 0.273  f1 0.200  accuracy 0.400  n 40  failures {}  90.4 ms/message
+W1029 21:33:20.060000 37904 .venv-train\Lib\site-packages\torch\utils\flop_counter.py:113] triton not found; flop counting will not work for triton kernels
+smoke-qwen3-0.6b-tuned__slm__na__E1000__n50: precision 0.000  recall 0.000  f1 0.000  accuracy 0.880  n 50  failures {}  102.6 ms/message
+W1029 21:34:02.119000 28100 .venv-train\Lib\site-packages\torch\utils\flop_counter.py:113] triton not found; flop counting will not work for triton kernels
+smoke-qwen3-0.6b-tuned__slm__na__PRESSURE__n40: precision 0.000  recall 0.000  f1 0.000  accuracy 0.725  n 40  failures {}  110.1 ms/message
+[21:34:15] done

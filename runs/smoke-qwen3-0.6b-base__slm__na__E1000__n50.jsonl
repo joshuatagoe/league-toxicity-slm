@@ -1,0 +1,50 @@
+{"id": "9524", "message": "this mid", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "11095", "message": "GG", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "6151", "message": "srsly udyr", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "6090", "message": "varus powrr", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "11925", "message": "noob", "gold": 1, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "7707", "message": "WHO FED KAYLE!?!!?!?!", "gold": 1, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "13349", "message": "nerfed tho", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "10236", "message": "HAHAHAHA VARUS", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "4073", "message": "Dat Zyra skin doe o:", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "14951", "message": "1", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "14860", "message": "smiteless ple", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "11385", "message": "easy", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "12155", "message": "4 v 5 first 12 minutes. Go do the math kid.", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "3591", "message": "when you jump on turrnet", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "913", "message": "lag", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "6302", "message": "there goes", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "449", "message": "nice", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "12449", "message": "pfiou", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "13760", "message": "0/3 nasus", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "1929", "message": "4 bot again", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "14560", "message": "bg", "gold": 1, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "6842", "message": "dammit", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "14886", "message": "my god", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "2897", "message": "okay", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "3439", "message": "really lol", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "3049", "message": "dw", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "1670", "message": "Darius", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "12856", "message": "this retard carry ur game", "gold": 1, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "8151", "message": "AND ULTER HER", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "8233", "message": "me too", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "13524", "message": "trynda was bing", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "8334", "message": "Dont need red ", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "6003", "message": "my main ^^", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "4730", "message": "you should open your eyes and stfu", "gold": 1, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "9283", "message": "So Jinxed", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "3715", "message": "he prefer run", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "10214", "message": "no :S", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "2031", "message": "You are dead the same about of times like me", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "14420", "message": "nasus is hangin' around like rick ross bitchtits", "gold": 1, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "12315", "message": "not you", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "7980", "message": "u2", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "8036", "message": "i did with ping", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "10551", "message": "GO OUT :$", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "6523", "message": "jix", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "12015", "message": "defend pls", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "2765", "message": "its over", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "3318", "message": "lololol", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "8473", "message": "damn trundle got dmg", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "2220", "message": "bg", "gold": 0, "pred": 0, "status": "ok", "raw": "nontoxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}
+{"id": "14052", "message": "this renek is strong", "gold": 0, "pred": 1, "status": "ok", "raw": "toxic", "stop_reason": null, "input_tokens": 0, "output_tokens": 0, "latency_ms": 44.8, "error": null}

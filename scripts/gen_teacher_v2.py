@@ -1,6 +1,6 @@
 """Generate the v2 teacher examples for the diagnosed failures, then gate them.
 
-Usage: python -I scripts/gen_teacher_v2.py
+Usage: python -I scripts/gen_teacher_v2.py [--smoke]
 
 v1 failed the pressure set in two ways: it flags harmless lines that contain insult
 words (quotes, reports, complaints about the game), and it misses hostility with no
@@ -12,7 +12,8 @@ to an eval or pressure message, then a critic from the other model family checks
 against the written rules. Lines the critic disputes are kept aside for the author.
 
 Writes data/sft/teacher_v2.jsonl (kept), data/sft/teacher_v2_disputed.jsonl and
-data/sft/teacher_v2_meta.json.
+data/sft/teacher_v2_meta.json. --smoke runs the same pipeline on two categories and one
+call each, writing to data/smoke/ instead (see train/smoke.sh).
 """
 import difflib
 import json
@@ -30,8 +31,9 @@ from run_ceiling import load_dotenv  # noqa: E402
 TEACHER = "claude-opus-5-5"
 CRITIC = "gpt-5.6-sol"
 SEED = 2026
-SETTINGS_PER_CATEGORY = 4
-PER_CALL = 15
+SMOKE = "--smoke" in sys.argv
+SETTINGS_PER_CATEGORY = 1 if SMOKE else 4
+PER_CALL = 10 if SMOKE else 15
 
 CATEGORIES = {
     # label 1: hostile with no insult words (v1 missed these)
@@ -50,6 +52,8 @@ CATEGORIES = {
     "friendly_banter": (0, "Friendly teasing or banter that nobody would take as offensive: laughing at a funny misplay together, joking with a duo, praising the enemy."),
     "stop_the_flame": (0, "A player telling someone who is flaming to stop or calm down, sometimes bluntly, without insulting them back."),
 }
+if SMOKE:  # one category per label
+    CATEGORIES = {c: CATEGORIES[c] for c in ("sarcasm_at_teammate", "quote_or_report")}
 SETTINGS = [
     "right after a teammate died to a gank", "after losing a teamfight at dragon", "in lane during the first 10 minutes",
     "after the enemy team surrendered", "after a teammate missed an important skillshot", "late game near baron",
@@ -158,7 +162,8 @@ def main() -> int:
             (kept if verdict == ("toxic" if row["label"] else "nontoxic") else disputed).append(row)
     critic_tokens = [(r.input_tokens, r.output_tokens) for _, r in critiques]
 
-    out = ROOT / "data" / "sft"
+    out = ROOT / "data" / ("smoke" if SMOKE else "sft")
+    out.mkdir(exist_ok=True)
     for name, rows in (("teacher_v2.jsonl", kept), ("teacher_v2_disputed.jsonl", disputed)):
         with (out / name).open("w", encoding="utf-8", newline="\n") as f:
             for row in rows:
