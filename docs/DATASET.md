@@ -10,6 +10,7 @@ Every file the model was trained or scored on: its shape, where it came from and
 | `data/sft/teacher_v2.jsonl` | 676 | 269 (39.8%) | The category it was written for, under the written rules | Mixed into v2 and v2-small |
 | `data/sft/train_v2.jsonl` | 11,595 | 1,275 (11.0%) | 10,919 expert + 676 teacher | Training v2, the shipped model |
 | `data/sft/train_v2_small.jsonl` | 3,405 | 501 (14.7%) | 2,729 expert + 676 teacher | Training v2-small |
+| `data/sft/train_v3.jsonl` | 13,623 | 2,082 (15.3%) | 10,919 expert + the same 676 teacher lines, each 4 times | Training v3, a heavier dose of the teacher lines |
 | `data/sft/val.jsonl` | 1,213 | 112 (9.2%) | L2DTnH experts | Held aside; not used for training or any reported score |
 | `data/eval/E1000.jsonl` | 1,000 | 102 (10.2%) | L2DTnH experts | The benchmark: every precision, recall and F1 in the reports |
 | `data/eval/FULL.jsonl` | 3,035 | 280 (9.2%) | L2DTnH experts | The whole test split; confirmed the best prompted cell |
@@ -17,7 +18,7 @@ Every file the model was trained or scored on: its shape, where it came from and
 | `data/sft/teacher_v2_disputed.jsonl` | 40 | — | Teacher and critic disagreed | Left out of training |
 | `data/smoke/*` | 20 teacher + 260 mixed | — | As above | The smoke test only (`train/smoke.sh`) |
 
-**Expert-labelled vs teacher-written.** v1 trained only on expert-labelled real chat. v2 adds 676 teacher-written lines, 5.8% of its data. Teacher rows have ids starting `t2-` and a `category` field; expert rows have the L2DTnH message id. Every eval set is real chat, except the pressure set, which the author wrote and labelled.
+**Expert-labelled vs teacher-written.** v1 trained only on expert-labelled real chat. v2 adds 676 teacher-written lines, 5.8% of its data. v3 repeats each of those lines 4 times, so they are 19.8% of its rows (2,704); a repeat's id ends in `-r0` to `-r3`. Teacher rows have ids starting `t2-` and a `category` field; expert rows have the L2DTnH message id. Every eval set is real chat, except the pressure set, which the author wrote and labelled.
 
 ## Where the real chat comes from
 
@@ -46,7 +47,7 @@ Every file the model was trained or scored on: its shape, where it came from and
 - 4 were dropped by the leakage check: 2 matched an eval message and 2 were within 0.8 similarity of a pressure line.
 - A GPT-5.6 Sol critic labelled the remaining 716 under [LABELING_RULES.md](LABELING_RULES.md). It disputed 40, which were left out (`teacher_v2_disputed.jsonl`).
 
-The teacher calls and the critic cost $0.81 at list prices (`data/sft/teacher_v2_meta.json`). `scripts/make_sft_v2.py` (seed 11) mixes the kept lines into the expert rows.
+The teacher calls and the critic cost $0.81 at list prices (`data/sft/teacher_v2_meta.json`). `scripts/make_sft_v2.py` (seed 11) mixes the kept lines into the expert rows. `scripts/make_sft_v3.py` (the same seed) mixes in 4 copies of each instead; no new lines were generated.
 
 ## The author's labels
 
@@ -58,7 +59,7 @@ The teacher calls and the critic cost $0.81 at list prices (`data/sft/teacher_v2
 All files are JSON Lines, UTF-8, with LF line endings (the hashes depend on it).
 
 ```jsonc
-// Training rows (train_v1, train_v2, train_v2_small, val): the exact prompt the model sees
+// Training rows (train_v1, train_v2, train_v2_small, train_v3, val): the exact prompt the model sees
 {"id": "15922", "label": 0,
  "prompt": [{"role": "system", "content": "You moderate League of Legends chat. ... Reply with exactly one word: toxic or nontoxic."},
             {"role": "user", "content": "place"}],

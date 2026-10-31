@@ -3,10 +3,11 @@
 Usage (training environment, from the repo root):
   .venv-train/Scripts/python demo/server.py            # then open http://127.0.0.1:8780
 
-Loads Qwen3-1.7B once in bf16 and attaches two LoRA adapters: v2 from the public Hugging Face
-checkpoint at its pinned commit, and v1 from models/ if it is there. The untrained answer comes
-from the same weights with the adapters switched off. Prompt, chat template and greedy decoding
-are the ones eval.py uses, so the page gives the same answers as the eval runs.
+Loads Qwen3-1.7B once and attaches two LoRA adapters: v2 from the public Hugging Face checkpoint
+at its pinned commit, and v1 from models/ if it is there. The untrained answer comes from the same
+weights with the adapters switched off. Prompt, chat template and greedy decoding are the ones
+eval.py uses. On a GPU the weights load in bf16, as in eval.py; on a CPU (the hosted Space) in
+--cpu-dtype, so a borderline line can get a different answer there (see the README).
 """
 import argparse
 import json
@@ -24,12 +25,11 @@ from peft import PeftModel  # noqa: E402
 from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
 
 from labels import parse_label  # noqa: E402
+from pins import BASE, BASE_REVISION  # noqa: E402
+from pins import TUNED as V2_REPO  # noqa: E402
+from pins import TUNED_REVISION as V2_REVISION  # noqa: E402
 from slm import label  # noqa: E402
 
-BASE = "Qwen/Qwen3-1.7B"
-BASE_REVISION = "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e"
-V2_REPO = "Juchen/league-toxicity-qwen3-1.7b"
-V2_REVISION = "80e3d1bac9505024f49cf3439926f2be7d2e809d"
 V1_DIR = ROOT / "models" / "qwen3-1.7b-v1-n10919"
 RESULT_ROWS = [  # (run name, label on the page)
     ("qwen3-1.7b-base__slm__na", "Qwen3-1.7B, untrained"),
@@ -45,10 +45,14 @@ def read_jsonl(path: Path) -> list[dict]:
 
 
 class Demo:
-    def __init__(self):
+    def __init__(self, cpu_dtype: str = "float32"):
+        self.device = "GPU" if torch.cuda.is_available() else "CPU"
         self.tokenizer = AutoTokenizer.from_pretrained(BASE, revision=BASE_REVISION)
         self.tokenizer.padding_side = "left"
-        base = AutoModelForCausalLM.from_pretrained(BASE, revision=BASE_REVISION, dtype=torch.bfloat16, device_map={"": 0})
+        if self.device == "GPU":
+            base = AutoModelForCausalLM.from_pretrained(BASE, revision=BASE_REVISION, dtype=torch.bfloat16, device_map={"": 0})
+        else:
+            base = AutoModelForCausalLM.from_pretrained(BASE, revision=BASE_REVISION, dtype=getattr(torch, cpu_dtype))
         self.model = PeftModel.from_pretrained(base, V2_REPO, revision=V2_REVISION, adapter_name="v2")
         self.models = ["untrained", "v2"]
         if (V1_DIR / "adapter_config.json").exists():
@@ -71,7 +75,8 @@ class Demo:
                     raws = label(self.tokenizer, self.model, lines)
                 out[name] = [{"raw": r, "label": {1: "toxic", 0: "nontoxic"}.get(parse_label(r))} for r in raws]
             ms = (time.perf_counter() - start) * 1000
-        return {"models": self.models, "answers": out, "ms_per_line_per_model": round(ms / len(lines) / len(self.models), 1)}
+        return {"models": self.models, "answers": out, "device": self.device,
+                "ms_per_line_per_model": round(ms / len(lines) / len(self.models), 1)}
 
     def _sets(self) -> list[dict]:
         cfg = json.loads((ROOT / "demo" / "examples.json").read_text(encoding="utf-8"))
@@ -107,10 +112,12 @@ class Demo:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
+    ap.add_argument("--host", default="127.0.0.1", help="0.0.0.0 to serve beyond this machine (the Space does)")
     ap.add_argument("--port", type=int, default=8780)
+    ap.add_argument("--cpu-dtype", default="float32", choices=["float32", "bfloat16"], help="weights on a CPU-only machine")
     args = ap.parse_args()
-    demo = Demo()
-    info = {"models": demo.models, "sets": demo.sets, "results": demo.results()}
+    demo = Demo(args.cpu_dtype)
+    info = {"models": demo.models, "device": demo.device, "sets": demo.sets, "results": demo.results()}
     files = {"/": ("demo/index.html", "text/html; charset=utf-8"),
              "/data_efficiency.svg": ("results/data_efficiency.svg", "image/svg+xml")}
 
@@ -143,8 +150,8 @@ def main() -> int:
         def log_message(self, *_):
             pass
 
-    server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
-    print(f"demo ready: http://127.0.0.1:{args.port}  models: {', '.join(demo.models)}", flush=True)
+    server = ThreadingHTTPServer((args.host, args.port), Handler)
+    print(f"demo ready: http://{args.host}:{args.port}  models: {', '.join(demo.models)}  device: {demo.device}", flush=True)
     server.serve_forever()
     return 0
 

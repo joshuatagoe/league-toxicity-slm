@@ -8,6 +8,9 @@ Usage (training environment):
 --model is a full model or a LoRA adapter (local folder or Hugging Face repo). Writes
 runs/<name>__slm__na__<eval set>.jsonl and .meta.json in the same format as the
 frontier runs, so src/report.py puts base, tuned and frontier models in one table.
+
+--eval-set also takes a grader's held-out file: JSON Lines, JSON, CSV, TSV or plain text,
+read by src/evalsets.py. Rows without a label are labelled but not scored.
 """
 import argparse
 import hashlib
@@ -21,6 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
 
+from evalsets import read_eval_set  # noqa: E402
 from labels import parse_label  # noqa: E402
 from metrics import confusion, scores  # noqa: E402
 from slm import label, load  # noqa: E402
@@ -30,7 +34,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True, help="hub id, local folder, or LoRA adapter")
     ap.add_argument("--revision", help="pin a hub commit")
-    ap.add_argument("--eval-set", required=True, help="path to an eval JSONL, e.g. data/eval/E1000.jsonl")
+    ap.add_argument("--eval-set", required=True, help="path to an eval set, e.g. data/eval/E1000.jsonl or a held-out CSV")
     ap.add_argument("--limit", type=int)
     ap.add_argument("--batch", type=int, default=32)
     ap.add_argument("--name", help="run name (default: derived from --model)")
@@ -38,7 +42,7 @@ def main() -> int:
     args = ap.parse_args()
 
     eval_path = Path(args.eval_set)
-    rows = [json.loads(l) for l in eval_path.open(encoding="utf-8") if l.strip()]
+    rows = read_eval_set(eval_path)
     if args.limit:
         rows = rows[: args.limit]
     eval_name = eval_path.stem
@@ -64,8 +68,9 @@ def main() -> int:
             records.append(rec)
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
-    c = confusion(records)
-    s = scores(c)
+    labelled = [r for r in records if r["gold"] is not None]
+    c = confusion(labelled)
+    s = scores(c) if labelled else None
     try:
         commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
     except (OSError, subprocess.CalledProcessError):
@@ -79,8 +84,15 @@ def main() -> int:
         "per_message_ms": per_message_ms, "confusion": c, "scores": s,
     }
     (runs / f"{cell}.meta.json").write_text(json.dumps(meta, indent=2) + "\n")
-    print(f"{cell}: precision {s['precision']:.3f}  recall {s['recall']:.3f}  f1 {s['f1']:.3f}  "
-          f"accuracy {s['accuracy']:.3f}  n {s['n']}  failures {c['failures']}  {per_message_ms} ms/message")
+    unlabelled = len(records) - len(labelled)
+    if s:
+        print(f"{cell}: precision {s['precision']:.3f}  recall {s['recall']:.3f}  f1 {s['f1']:.3f}  "
+              f"accuracy {s['accuracy']:.3f}  n {s['n']}  failures {c['failures']}  {per_message_ms} ms/message")
+    if unlabelled:
+        said = [r["pred"] for r in records if r["gold"] is None]
+        print(f"{cell}: {unlabelled} rows without a label, not scored: {said.count(1)} toxic, {said.count(0)} nontoxic, "
+              f"{said.count(None)} unreadable replies")
+    print(f"answers: runs/{cell}.jsonl")
     return 0
 
 

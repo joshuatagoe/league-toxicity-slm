@@ -5,7 +5,8 @@
     "train_v1.jsonl": "4df4662d550271389932eac24be4788d5307ee0abc4266cccdfb4f287fd0b86b",
     "val.jsonl": "7c189dcfff2a3d717d87e63d7d0883234d4b58db207ef346e46985ae6c8ca4b7",
     "train_v2.jsonl": "290ff9257054cba1f6fd3daba28ea5c076f210d7d45ddfac9e2271357aea5ed6",
-    "train_v2_small.jsonl": "9d2508b9771f37d3bc504f74a69d7e0db18a27db10da378151a95eb84524b76d"
+    "train_v2_small.jsonl": "9d2508b9771f37d3bc504f74a69d7e0db18a27db10da378151a95eb84524b76d",
+    "train_v3.jsonl": "9b4866d593bc60a63ae5491998c6d05bdb68c094b707953c4f3c9c376aaae2b2"
   },
   "train_v2": {
     "seed": 11,
@@ -16,5 +17,11 @@
     "seed": 11,
     "v1_rows": 2729,
     "teacher_rows": 676
+  },
+  "train_v3": {
+    "seed": 11,
+    "v1_rows": 10919,
+    "teacher_rows": 676,
+    "teacher_repeat": 4
   }
 }

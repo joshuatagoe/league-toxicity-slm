@@ -1,0 +1,29 @@
+{
+  "cell": "qwen3-1.7b-v1-n2729-seed42__slm__na__PRESSURE",
+  "model": "qwen3-1.7b-v1-n2729-seed42",
+  "model_ref": "models/qwen3-1.7b-v1-n2729-seed42",
+  "revision": null,
+  "strategy": "slm",
+  "effort": "na",
+  "eval_set": "PRESSURE",
+  "limit": null,
+  "quantization": "bf16",
+  "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584",
+  "git_commit": "c15bbb2d026846af0fa63dffd1f319e8a1f369aa",
+  "finished_at": "2026-10-30T21:09:04.856862+00:00",
+  "per_message_ms": 114.9,
+  "confusion": {
+    "tp": 3,
+    "fp": 4,
+    "tn": 25,
+    "fn": 8,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.42857142857142855,
+    "recall": 0.2727272727272727,
+    "f1": 0.33333333333333326,
+    "accuracy": 0.7,
+    "n": 40
+  }
+}

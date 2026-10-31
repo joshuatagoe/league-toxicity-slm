@@ -49,3 +49,16 @@ def bootstrap(records: list[dict], rounds: int = 1000, seed: int = 0) -> dict:
         values.sort()
         out[k] = (values[int(0.025 * rounds)], values[int(0.975 * rounds) - 1])
     return out
+
+
+def paired(a: list[dict], b: list[dict], metric: str, rounds: int = 1000, seed: int = 0) -> tuple:
+    """Difference a - b on the same resampled messages, with a 95% percentile interval."""
+    assert [r["id"] for r in a] == [r["id"] for r in b], "runs must cover the same messages in the same order"
+    rng = random.Random(seed)
+    diffs = []
+    for _ in range(rounds):
+        idx = [rng.randrange(len(a)) for _ in a]
+        diffs.append(scores(confusion([a[i] for i in idx]))[metric] - scores(confusion([b[i] for i in idx]))[metric])
+    diffs.sort()
+    point = scores(confusion(a))[metric] - scores(confusion(b))[metric]
+    return point, diffs[int(0.025 * rounds)], diffs[int(0.975 * rounds) - 1]

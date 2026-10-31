@@ -1,0 +1,34 @@
+{
+  "cell": "paper-bert__classifier__na__E1000",
+  "model": "paper-bert",
+  "model_ref": "https://github.com/irdin-pekaric/esorics26_toxicity/tree/66929d13e455d529f99feee2819374a60ecd6ad9/model_creation/3_finetuning/3_1_finetuning_enlish_only/output/finetuned_model",
+  "revision": "66929d13e455d529f99feee2819374a60ecd6ad9",
+  "strategy": "classifier",
+  "effort": "na",
+  "eval_set": "E1000",
+  "limit": null,
+  "quantization": "fp32",
+  "device": "cpu",
+  "max_length": 192,
+  "threshold": 0.58,
+  "train_rows": 12136,
+  "weights_sha256": "e4a01ae8c4bf431fb6514580a4dd111edca0d9033d473b054d4dc3d3305352af",
+  "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91",
+  "git_commit": "c15bbb2d026846af0fa63dffd1f319e8a1f369aa",
+  "finished_at": "2026-10-30T22:30:26.182655+00:00",
+  "per_message_ms": 29.9,
+  "confusion": {
+    "tp": 72,
+    "fp": 13,
+    "tn": 885,
+    "fn": 30,
+    "failures": {}
+  },
+  "scores": {
+    "precision": 0.8470588235294118,
+    "recall": 0.7058823529411765,
+    "f1": 0.770053475935829,
+    "accuracy": 0.957,
+    "n": 1000
+  }
+}

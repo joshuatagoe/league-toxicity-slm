@@ -1,0 +1,576 @@
+{
+  "project": "league-toxicity-slm",
+  "behaviour": "One League of Legends chat line in; exactly one word out: toxic or nontoxic.",
+  "code_commit": "c15bbb2d026846af0fa63dffd1f319e8a1f369aa",
+  "student": {
+    "base_model": "Qwen/Qwen3-1.7B",
+    "base_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "method": "QLoRA (4-bit NF4 base, LoRA adapter)",
+    "lora": {
+      "r": 16,
+      "alpha": 16,
+      "dropout": 0.0,
+      "targets": "all attention and MLP projections"
+    },
+    "training": {
+      "lr": 0.0002,
+      "epochs": 1.0,
+      "batch": 16,
+      "grad_accum": 1,
+      "max_length": 256,
+      "schedule": "cosine"
+    },
+    "eval_precision": "bf16, greedy, batch 32"
+  },
+  "shipped": {
+    "repo": "Juchen/league-toxicity-qwen3-1.7b",
+    "revision": "80e3d1bac9505024f49cf3439926f2be7d2e809d",
+    "trained_as": "qwen3-1.7b-v2",
+    "train_file": "data/sft/train_v2.jsonl",
+    "train_sha256": "290ff9257054cba1f6fd3daba28ea5c076f210d7d45ddfac9e2271357aea5ed6"
+  },
+  "teacher": {
+    "teacher": "claude-opus-5-5",
+    "critic": "gpt-5.6-sol",
+    "seed": 2026,
+    "generated": 720,
+    "kept": 676,
+    "disputed": 40,
+    "cost_usd_list_price": 0.81
+  },
+  "seeds": {
+    "train_val_split": 7,
+    "teacher_generation": 2026,
+    "v2_mix": 11,
+    "v3_mix": 11,
+    "training": [
+      42,
+      3407
+    ],
+    "bootstrap": 0
+  },
+  "source_data": {
+    "repo": "irdin-pekaric/esorics26_toxicity@66929d13e455d529f99feee2819374a60ecd6ad9",
+    "raw_sha256": {
+      "2_16000_chatlogs_english_only_train_split.csv": "be0b648f82fa17445813148c152ffb1d1140cf3ee11df9715c15a2938e017e2a",
+      "2_16000_chatlogs_english_only_test_split.csv": "502f40cbfa37f3cc5f30d8ee86415dc01e2987ee512af665fc239bf7a1aef615"
+    }
+  },
+  "data_sha256": {
+    "data/sft/train_v1.jsonl": "4df4662d550271389932eac24be4788d5307ee0abc4266cccdfb4f287fd0b86b",
+    "data/sft/val.jsonl": "7c189dcfff2a3d717d87e63d7d0883234d4b58db207ef346e46985ae6c8ca4b7",
+    "data/sft/train_v2.jsonl": "290ff9257054cba1f6fd3daba28ea5c076f210d7d45ddfac9e2271357aea5ed6",
+    "data/sft/train_v2_small.jsonl": "9d2508b9771f37d3bc504f74a69d7e0db18a27db10da378151a95eb84524b76d",
+    "data/sft/train_v3.jsonl": "9b4866d593bc60a63ae5491998c6d05bdb68c094b707953c4f3c9c376aaae2b2",
+    "data/sft/teacher_v2.jsonl": "df94ef3a83f5c51e2f425fad435b184e7fd31f5c6da9930b466929ac06389b72",
+    "data/sft/teacher_v2_disputed.jsonl": "e8fc4ffaba899d4f73169942182eb30a270fe25ed13f83972525d4261c375b1c",
+    "data/eval/E1000.jsonl": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91",
+    "data/eval/FULL.jsonl": "95ee13ad929bf7e75db3695ebc738c4383a811ab7dab4e580b7c612f3cba586c",
+    "data/pressure/PRESSURE.jsonl": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+  },
+  "versions": {
+    "python": "3.12.14",
+    "torch": "2.14.1+cu126",
+    "transformers": "5.22.0",
+    "peft": "0.21.2",
+    "trl": "1.17.0",
+    "bitsandbytes": "0.50.2",
+    "accelerate": "1.15.0",
+    "datasets": "5.1.0",
+    "huggingface-hub": "2.4.0"
+  },
+  "models": {
+    "qwen3-1.7b-base": {
+      "what": "untrained base",
+      "E1000": {
+        "precision": 0.466,
+        "recall": 0.4706,
+        "f1": 0.4683,
+        "accuracy": 0.891,
+        "correct": 891,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.1667,
+        "recall": 0.0909,
+        "f1": 0.1176,
+        "accuracy": 0.625,
+        "correct": 25,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v1-n10919-seed42": {
+      "train": {
+        "file": "data/sft/train_v1.jsonl",
+        "sha256": "4df4662d550271389932eac24be4788d5307ee0abc4266cccdfb4f287fd0b86b",
+        "rows": 10919,
+        "toxic": 1006,
+        "seed": 42,
+        "steps": 683,
+        "loss": 0.0607,
+        "minutes": 73.4,
+        "code_commit": "c15bbb2d026846af0fa63dffd1f319e8a1f369aa"
+      },
+      "E1000": {
+        "precision": 0.8788,
+        "recall": 0.5686,
+        "f1": 0.6905,
+        "accuracy": 0.948,
+        "correct": 948,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.4286,
+        "recall": 0.2727,
+        "f1": 0.3333,
+        "accuracy": 0.7,
+        "correct": 28,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v1-n10919": {
+      "train": {
+        "file": "data/sft/train_v1.jsonl",
+        "sha256": "4df4662d550271389932eac24be4788d5307ee0abc4266cccdfb4f287fd0b86b",
+        "rows": 10919,
+        "toxic": 1006,
+        "seed": 3407,
+        "steps": 683,
+        "loss": 0.0555,
+        "minutes": 16.9,
+        "code_commit": "7edd04f44bf75cfa4a3320849cf0ad7b8d1819a3"
+      },
+      "E1000": {
+        "precision": 0.8228,
+        "recall": 0.6373,
+        "f1": 0.7182,
+        "accuracy": 0.949,
+        "correct": 949,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.375,
+        "recall": 0.2727,
+        "f1": 0.3158,
+        "accuracy": 0.675,
+        "correct": 27,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v1-n1364-seed42": {
+      "train": {
+        "file": "data/sft/train_v1.jsonl",
+        "sha256": "4df4662d550271389932eac24be4788d5307ee0abc4266cccdfb4f287fd0b86b",
+        "rows": 1364,
+        "toxic": 117,
+        "seed": 42,
+        "steps": 86,
+        "loss": 0.13,
+        "minutes": 11.1,
+        "code_commit": "c15bbb2d026846af0fa63dffd1f319e8a1f369aa"
+      },
+      "E1000": {
+        "precision": 0.7879,
+        "recall": 0.5098,
+        "f1": 0.619,
+        "accuracy": 0.936,
+        "correct": 936,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.1667,
+        "recall": 0.0909,
+        "f1": 0.1176,
+        "accuracy": 0.625,
+        "correct": 25,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v1-n1364": {
+      "train": {
+        "file": "data/sft/train_v1.jsonl",
+        "sha256": "4df4662d550271389932eac24be4788d5307ee0abc4266cccdfb4f287fd0b86b",
+        "rows": 1364,
+        "toxic": 117,
+        "seed": 3407,
+        "steps": 86,
+        "loss": 0.1346,
+        "minutes": 2.6,
+        "code_commit": "7edd04f44bf75cfa4a3320849cf0ad7b8d1819a3"
+      },
+      "E1000": {
+        "precision": 0.8462,
+        "recall": 0.2157,
+        "f1": 0.3438,
+        "accuracy": 0.916,
+        "correct": 916,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "accuracy": 0.7,
+        "correct": 28,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v1-n2729-seed42": {
+      "train": {
+        "file": "data/sft/train_v1.jsonl",
+        "sha256": "4df4662d550271389932eac24be4788d5307ee0abc4266cccdfb4f287fd0b86b",
+        "rows": 2729,
+        "toxic": 232,
+        "seed": 42,
+        "steps": 171,
+        "loss": 0.0847,
+        "minutes": 21.4,
+        "code_commit": "c15bbb2d026846af0fa63dffd1f319e8a1f369aa"
+      },
+      "E1000": {
+        "precision": 0.8406,
+        "recall": 0.5686,
+        "f1": 0.6784,
+        "accuracy": 0.945,
+        "correct": 945,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.4286,
+        "recall": 0.2727,
+        "f1": 0.3333,
+        "accuracy": 0.7,
+        "correct": 28,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v1-n2729": {
+      "train": {
+        "file": "data/sft/train_v1.jsonl",
+        "sha256": "4df4662d550271389932eac24be4788d5307ee0abc4266cccdfb4f287fd0b86b",
+        "rows": 2729,
+        "toxic": 232,
+        "seed": 3407,
+        "steps": 171,
+        "loss": 0.102,
+        "minutes": 4.5,
+        "code_commit": "7edd04f44bf75cfa4a3320849cf0ad7b8d1819a3"
+      },
+      "E1000": {
+        "precision": 0.8793,
+        "recall": 0.5,
+        "f1": 0.6375,
+        "accuracy": 0.942,
+        "correct": 942,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.3333,
+        "recall": 0.1818,
+        "f1": 0.2353,
+        "accuracy": 0.675,
+        "correct": 27,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v1-n5459-seed42": {
+      "train": {
+        "file": "data/sft/train_v1.jsonl",
+        "sha256": "4df4662d550271389932eac24be4788d5307ee0abc4266cccdfb4f287fd0b86b",
+        "rows": 5459,
+        "toxic": 496,
+        "seed": 42,
+        "steps": 342,
+        "loss": 0.0684,
+        "minutes": 30.5,
+        "code_commit": "c15bbb2d026846af0fa63dffd1f319e8a1f369aa"
+      },
+      "E1000": {
+        "precision": 0.8592,
+        "recall": 0.598,
+        "f1": 0.7052,
+        "accuracy": 0.949,
+        "correct": 949,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.4286,
+        "recall": 0.2727,
+        "f1": 0.3333,
+        "accuracy": 0.7,
+        "correct": 28,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v1-n5459": {
+      "train": {
+        "file": "data/sft/train_v1.jsonl",
+        "sha256": "4df4662d550271389932eac24be4788d5307ee0abc4266cccdfb4f287fd0b86b",
+        "rows": 5459,
+        "toxic": 496,
+        "seed": 3407,
+        "steps": 342,
+        "loss": 0.0744,
+        "minutes": 57.2,
+        "code_commit": "50a517567df996003a64087bc207ae8b3a4a825a"
+      },
+      "E1000": {
+        "precision": 0.8493,
+        "recall": 0.6078,
+        "f1": 0.7086,
+        "accuracy": 0.949,
+        "correct": 949,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.4286,
+        "recall": 0.2727,
+        "f1": 0.3333,
+        "accuracy": 0.7,
+        "correct": 28,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v2-seed42": {
+      "train": {
+        "file": "data/sft/train_v2.jsonl",
+        "sha256": "290ff9257054cba1f6fd3daba28ea5c076f210d7d45ddfac9e2271357aea5ed6",
+        "rows": 11595,
+        "toxic": 1275,
+        "seed": 42,
+        "steps": 725,
+        "loss": 0.0657,
+        "minutes": 176.2,
+        "code_commit": "c15bbb2d026846af0fa63dffd1f319e8a1f369aa"
+      },
+      "E1000": {
+        "precision": 0.875,
+        "recall": 0.6176,
+        "f1": 0.7241,
+        "accuracy": 0.952,
+        "correct": 952,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.5,
+        "recall": 0.3636,
+        "f1": 0.4211,
+        "accuracy": 0.725,
+        "correct": 29,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v2-small": {
+      "train": {
+        "file": "data/sft/train_v2_small.jsonl",
+        "sha256": "9d2508b9771f37d3bc504f74a69d7e0db18a27db10da378151a95eb84524b76d",
+        "rows": 3405,
+        "toxic": 501,
+        "seed": 3407,
+        "steps": 213,
+        "loss": 0.1139,
+        "minutes": 28.2,
+        "code_commit": "50a517567df996003a64087bc207ae8b3a4a825a"
+      },
+      "E1000": {
+        "precision": 0.7848,
+        "recall": 0.6078,
+        "f1": 0.6851,
+        "accuracy": 0.943,
+        "correct": 943,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.3333,
+        "recall": 0.2727,
+        "f1": 0.3,
+        "accuracy": 0.65,
+        "correct": 26,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v2": {
+      "train": {
+        "file": "data/sft/train_v2.jsonl",
+        "sha256": "290ff9257054cba1f6fd3daba28ea5c076f210d7d45ddfac9e2271357aea5ed6",
+        "rows": 11595,
+        "toxic": 1275,
+        "seed": 3407,
+        "steps": 725,
+        "loss": 0.0679,
+        "minutes": 96.9,
+        "code_commit": "50a517567df996003a64087bc207ae8b3a4a825a"
+      },
+      "E1000": {
+        "precision": 0.8571,
+        "recall": 0.5882,
+        "f1": 0.6977,
+        "accuracy": 0.948,
+        "correct": 948,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.5714,
+        "recall": 0.3636,
+        "f1": 0.4444,
+        "accuracy": 0.75,
+        "correct": 30,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v3": {
+      "train": {
+        "file": "data/sft/train_v3.jsonl",
+        "sha256": "9b4866d593bc60a63ae5491998c6d05bdb68c094b707953c4f3c9c376aaae2b2",
+        "rows": 13623,
+        "toxic": 2082,
+        "seed": 3407,
+        "steps": 852,
+        "loss": 0.0702,
+        "minutes": 38.2,
+        "code_commit": "c15bbb2d026846af0fa63dffd1f319e8a1f369aa"
+      },
+      "E1000": {
+        "precision": 0.7391,
+        "recall": 0.6667,
+        "f1": 0.701,
+        "accuracy": 0.942,
+        "correct": 942,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.5,
+        "recall": 0.3636,
+        "f1": 0.4211,
+        "accuracy": 0.725,
+        "correct": 29,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "qwen3-1.7b-v2-hub": {
+      "what": "Juchen/league-toxicity-qwen3-1.7b@80e3d1bac9505024f49cf3439926f2be7d2e809d, scored from the Hub",
+      "E1000": {
+        "precision": 0.8571,
+        "recall": 0.5882,
+        "f1": 0.6977,
+        "accuracy": 0.948,
+        "correct": 948,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.5714,
+        "recall": 0.3636,
+        "f1": 0.4444,
+        "accuracy": 0.75,
+        "correct": 30,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "claude-opus-5-5__zero_shot_p1__low": {
+      "what": "best prompted cell of its model family",
+      "E1000": {
+        "precision": 0.624,
+        "recall": 0.7647,
+        "f1": 0.6872,
+        "accuracy": 0.929,
+        "correct": 929,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.8462,
+        "recall": 1.0,
+        "f1": 0.9167,
+        "accuracy": 0.95,
+        "correct": 38,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "gpt-5.6-sol__few_shot__low": {
+      "what": "best prompted cell of its model family",
+      "E1000": {
+        "precision": 0.4186,
+        "recall": 0.8824,
+        "f1": 0.5678,
+        "accuracy": 0.863,
+        "correct": 863,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.6471,
+        "recall": 1.0,
+        "f1": 0.7857,
+        "accuracy": 0.85,
+        "correct": 34,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    },
+    "paper-bert": {
+      "what": "the L2DTnH paper's fine-tuned unitary/toxic-bert; it chose its epoch and threshold on the test split, so E1000 flatters it",
+      "repo": "irdin-pekaric/esorics26_toxicity",
+      "revision": "66929d13e455d529f99feee2819374a60ecd6ad9",
+      "folder": "model_creation/3_finetuning/3_1_finetuning_enlish_only/output/finetuned_model",
+      "sha256": {
+        "config.json": "08046c7d386f2d8ce626b159fabd594790cf6ac74679bfdc5cec169322e1f364",
+        "model.safetensors": "e4a01ae8c4bf431fb6514580a4dd111edca0d9033d473b054d4dc3d3305352af",
+        "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+        "tokenizer.json": "1df3266d8f29dd3afdf73a9ee31322104ff93f8575a6bae998be07284b792e89",
+        "tokenizer_config.json": "7b082b48a08a0b5c5939d99472e33addce3d96202155e33f7928cecd171186a0",
+        "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      },
+      "threshold": 0.58,
+      "max_length": 192,
+      "train_rows": 12136,
+      "eval_precision": "fp32 on the CPU",
+      "E1000": {
+        "precision": 0.8471,
+        "recall": 0.7059,
+        "f1": 0.7701,
+        "accuracy": 0.957,
+        "correct": 957,
+        "n": 1000,
+        "eval_sha256": "212f799989151a9d6843eaa1fbb35954209290244f64011db172295b4463ce91"
+      },
+      "PRESSURE": {
+        "precision": 0.25,
+        "recall": 0.1818,
+        "f1": 0.2105,
+        "accuracy": 0.625,
+        "correct": 25,
+        "n": 40,
+        "eval_sha256": "4bf3a6b76fc768f08b6f831cfae78c6b454d3c40bdf5756a73303bb9e9bca584"
+      }
+    }
+  }
+}

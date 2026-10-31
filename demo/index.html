@@ -58,6 +58,14 @@
   #resBody tr:hover td, #outBody tr:hover td.msg { background: #eef2fd; }
   .spec { font-size: 18px; line-height: 1.5; margin: 10px 0 0; padding-left: 14px; border-left: 3px solid var(--accent); }
   [hidden] { display: none !important; }
+  @media (max-width: 760px) {
+    header { flex-direction: column; align-items: flex-start; padding: 12px 16px; }
+    .chips { justify-content: flex-start; }
+    nav, main { padding-left: 16px; padding-right: 16px; }
+    .grid { grid-template-columns: 1fr; }
+    input[type=text] { min-width: 0; }
+    .card { overflow-x: auto; }
+  }
 </style>
 </head>
 <body>
@@ -108,8 +116,8 @@
       <div>
         <div class="card" style="margin-top:0">
           <h2>More expert data stops helping</h2>
-          <div class="note">v1 trained on nested subsets of the expert-labelled data, one seed each.</div>
-          <img class="curve" src="/data_efficiency.svg" alt="Data-efficiency curve: F1 on E1000 rises from 0.344 at 1,364 rows to 0.718 at 10,919 and stays under the 0.75 bar; pressure-set accuracy stays between 0.675 and 0.700." style="margin-top:10px">
+          <div class="note">v1 trained on nested subsets of the expert-labelled data, with two training seeds per size.</div>
+          <img class="curve" src="/data_efficiency.svg" alt="Data-efficiency curve, mean of two seeds: F1 on E1000 rises from 0.481 at 1,364 rows to 0.707 at 5,459, then stays flat at 10,919 and under the 0.75 bar; pressure-set accuracy stays between 0.662 and 0.700." style="margin-top:10px">
         </div>
       </div>
     </div>
@@ -176,7 +184,7 @@ $('form').addEventListener('submit', async (e) => {
   const res = await labelLines([line]);
   typed.unshift({ message: line });
   for (const m of res.models) (typedAnswers[m] = typedAnswers[m] || []).unshift(res.answers[m][0]);
-  render('Your lines', `Typed live, newest first. Not from any eval set, so there is no label. About ${Math.round(res.ms_per_line_per_model)} ms per line per model on this GPU.`,
+  render('Your lines', `Typed live, newest first. Not from any eval set, so there is no label. About ${Math.round(res.ms_per_line_per_model)} ms per line per model on this ${res.device}.`,
     typed, typedAnswers, res.models, false, false);
   $('line').value = '';
 });

@@ -14,3 +14,5 @@ demo/video/tones/
 demo/video/clips/
 demo/video/walkthrough.mp4
 demo/video/walkthrough-voiced.mp4
+# Hugging Face Space and dataset folders (scripts/hf_space.py, scripts/hf_dataset.py)
+build/
