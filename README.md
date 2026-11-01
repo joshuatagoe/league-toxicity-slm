@@ -75,6 +75,12 @@ The reader is `src/evalsets.py`, tested in `tests/test_evalsets.py`.
 
 ## Demo
 
+**Live, in Colab: [demo/colab_demo.ipynb](https://colab.research.google.com/github/joshuatagoe/league-toxicity-slm/blob/main/demo/colab_demo.ipynb).** Choose the free T4 GPU and Run all, then type any chat line. The untrained Qwen3-1.7B and the public v2 adapter, both at the commits above, label it side by side. The notebook also labels the demo page's example lines next to their labels, and checks itself against the recorded eval runs on the 40 pressure lines. It needs a Google account, and the first run takes a few minutes to install three libraries and download about 4 GB.
+- **On a T4 the weights load in fp16**, because a T4 has no bf16. On an L4 or A100 they load in bf16, as in the eval runs.
+- **Tested by running the notebook's own code cells on this laptop's GPU.** In bf16 both models gave the same answer as their eval runs on all 1,000 benchmark lines and all 40 pressure lines.
+- **In fp16, standing in for a T4, the tuned model matched on 998 of 1,000 and 40 of 40.** Its two differences are new false alarms (`fuck blue`, `This engage was stupid pant`), which would take its benchmark precision from 0.857 to 0.833. The untrained model matched on 994 and 39; the pressure line is `cry more top` again.
+- **It hasn't been run on Colab itself.** A T4's fp16 arithmetic differs a little from this GPU's, so a borderline line or two may differ there as well.
+
 **Video: [youtube.com/watch?v=yJ5kVQjnCCw](https://www.youtube.com/watch?v=yJ5kVQjnCCw)**, a narrated walkthrough of the tuned model next to the untrained one (also in the repo as [docs/walkthrough-voiced.mp4](docs/walkthrough-voiced.mp4); the silent cut is [docs/walkthrough.mp4](docs/walkthrough.mp4) and the script is [docs/walkthrough-script.md](docs/walkthrough-script.md)). To run the page it records (needs a CUDA GPU and the training environment):
 
 ```
@@ -85,10 +91,7 @@ Then open http://127.0.0.1:8780. The server loads Qwen3-1.7B once in bf16 and at
 
 One caveat: on borderline lines, the untrained model's answer can change with the other lines in its batch (bf16 with left padding). One benchmark line did this, so the example set uses lines whose answers held both in the set and alone.
 
-**Hosted version.** `scripts/hf_space.py` builds the same page as a Docker Space for Hugging Face's free CPU tier (2 vCPUs, 16 GB). It has the untrained base and the public v2 adapter at their pinned commits, with the weights baked into the image; there is no v1 column. Build it into `build/space` with `.venv-train/Scripts/python -I scripts/hf_space.py`; `--push` publishes it.
-- **On a CPU the weights load in float32, not bf16.** Run that way on this laptop, the built server matched the eval runs on 108 of 110 answers. The test sent the page's three example sets as the page does, then the 40 pressure lines in two requests of 20.
-- **v2 matched on all 55 lines.** The two misses are the untrained model answering `toxic` to `cry more top`, a borderline line whose answer also changes with batch size on the GPU.
-- **Speed isn't measured yet.** Here each line took 3 to 12 s per model, with 2 threads and the model partly paged to disk for lack of memory. The Space has more memory, so its speed needs checking once it's published.
+**A Hugging Face Space, not published.** `scripts/hf_space.py` builds the same page as a Docker Space, with the untrained base and the public v2 adapter at their pinned commits. Hugging Face now needs a PRO account to run a Docker Space, even on its free CPU hardware, so the Colab notebook is the hosted demo instead. Run on this laptop's CPU in float32, the built page matched the eval runs on 108 of 110 answers; the two misses were the untrained model on `cry more top`, a borderline line.
 
 `demo/video/` holds the recorder (`record.cjs`, Playwright) and the narration studio. To record the voice-over, run `python -I demo/video/studio.py --video docs/walkthrough.mp4 --sections demo/video/sections.json --script docs/walkthrough-script.md --clips demo/video/clips` and open http://127.0.0.1:8770.
 

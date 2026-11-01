@@ -1,4 +1,7 @@
-"""Build the hosted demo as a Hugging Face Space (Docker, free CPU), and optionally publish it.
+"""Build the demo page as a Hugging Face Space (Docker, CPU), and optionally publish it.
+
+Not published: Hugging Face now needs a PRO account to run a Docker Space, even on the free CPU
+hardware (--push fails with 402 Payment Required). The hosted demo is demo/colab_demo.ipynb instead.
 
 Usage (training environment, from the repo root):
   .venv-train/Scripts/python -I scripts/hf_space.py           # build only, into build/space
