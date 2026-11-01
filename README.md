@@ -25,6 +25,7 @@ The expert labels and the written rules disagree on some lines (see [results/rel
 | --- | --- |
 | Tuned model (v2 LoRA adapter, public) | [Juchen/league-toxicity-qwen3-1.7b](https://huggingface.co/Juchen/league-toxicity-qwen3-1.7b) at commit `80e3d1bac9505024f49cf3439926f2be7d2e809d` |
 | Base model | [Qwen/Qwen3-1.7B](https://huggingface.co/Qwen/Qwen3-1.7B) at commit `70d244cc86ccca08cf5af4e1e306ecf908b1ad5e` |
+| Training and eval data (public) | [Juchen/league-toxicity-chat](https://huggingface.co/datasets/Juchen/league-toxicity-chat) at commit `857733be37fe6e278e416e96c7341880f8754046`, described in [docs/DATASET.md](docs/DATASET.md) |
 | Eval code | this repo at commit `3745c5e9894ea5b6d5d57b6e945fd990ffd29154` |
 
 One command per eval set, in the training environment (`requirements-train.txt`):

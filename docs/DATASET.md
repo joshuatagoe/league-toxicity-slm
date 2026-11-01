@@ -84,4 +84,4 @@ All files are JSON Lines, UTF-8, with LF line endings (the hashes depend on it).
 - **English only, and only from reported games.** The most common report reasons are verbal abuse, negative attitude, offensive language and assisting the enemy team, so the chat skews heated.
 - **These are real players' messages.** Use them for research only, and never to label a real person as toxic.
 
-For the final submission the training and eval files will be published as a Hugging Face dataset, with this page as its card.
+The training and eval files are published as a Hugging Face dataset, [Juchen/league-toxicity-chat](https://huggingface.co/datasets/Juchen/league-toxicity-chat) at commit `857733be37fe6e278e416e96c7341880f8754046`, with this page as its card. `scripts/hf_dataset.py` copies each file unchanged and checks its SHA-256 against the repo's manifests before publishing.
