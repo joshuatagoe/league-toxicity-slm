@@ -79,7 +79,7 @@ The reader is `src/evalsets.py`, tested in `tests/test_evalsets.py`.
 - **On a T4 the weights load in fp16**, because a T4 has no bf16. On an L4 or A100 they load in bf16, as in the eval runs.
 - **Tested by running the notebook's own code cells on this laptop's GPU.** In bf16 both models gave the same answer as their eval runs on all 1,000 benchmark lines and all 40 pressure lines.
 - **In fp16, standing in for a T4, the tuned model matched on 998 of 1,000 and 40 of 40.** Its two differences are new false alarms (`fuck blue`, `This engage was stupid pant`), which would take its benchmark precision from 0.857 to 0.833. The untrained model matched on 994 and 39; the pressure line is `cry more top` again.
-- **It hasn't been run on Colab itself.** A T4's fp16 arithmetic differs a little from this GPU's, so a borderline line or two may differ there as well.
+- **On Colab's T4 it gave the same results as that fp16 run** on the pressure lines: the tuned model matched on all 40 (30/40 right), the untrained one on 39. A typed line took under a second for both models. Colab ships an old `torchao` that peft 0.21 refuses to load beside, so the notebook uninstalls it first; the demo doesn't use it.
 
 **Video: [youtube.com/watch?v=yJ5kVQjnCCw](https://www.youtube.com/watch?v=yJ5kVQjnCCw)**, a narrated walkthrough of the tuned model next to the untrained one (also in the repo as [docs/walkthrough-voiced.mp4](docs/walkthrough-voiced.mp4); the silent cut is [docs/walkthrough.mp4](docs/walkthrough.mp4) and the script is [docs/walkthrough-script.md](docs/walkthrough-script.md)). To run the page it records (needs a CUDA GPU and the training environment):
 
