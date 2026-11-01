@@ -1,8 +1,8 @@
 # Walkthrough video: narration script
 
-For the 3–5 minute early-submission demo (the tuned model succeeding where the base model fails). Read it over the screen recording, `docs/walkthrough.mp4` (4:43, silent). Each `## NN.` section is one clip you record in the studio (`demo/video/studio.py`). It starts on the recording's title card with the same `caption()` id. About 670 words; each scene is sized to its section at about 2.5 words a second, so a calm pace fits.
+For the 3–5 minute demo (the tuned model succeeding where the base model fails). Recorded for the early submission; sections 04 and 05 were rewritten and re-recorded for the final submission, after the second training seed, v3 and the sarcasm probe. Read it over the screen recording, `docs/walkthrough.mp4` (4:43, silent). Each `## NN.` section is one clip you record in the studio (`demo/video/studio.py`). It starts on the recording's title card with the same `caption()` id. About 670 words; each scene is sized to its section at about 2.5 words a second, so a calm pace fits.
 
-Every number comes from [results/slm_results.md](../results/slm_results.md), [results/ablation1.md](../results/ablation1.md) or the run files in `runs/`. The page shows answers from the models live, except the Claude column, which is read from Claude's eval run. The page's answers matched the eval runs on all 40 pressure lines and all 8 benchmark lines it shows.
+Every number comes from [results/slm_results.md](../results/slm_results.md), [results/ablation1.md](../results/ablation1.md), [results/sarcasm_probe.md](../results/sarcasm_probe.md) or the run files in `runs/`. The page shows answers from the models live, except the Claude column, which is read from Claude's eval run. The page's answers matched the eval runs on all 40 pressure lines and all 8 benchmark lines it shows.
 
 ## 00. Intro (title card: "League chat toxicity: a 1.7B model vs prompting")
 
@@ -22,11 +22,11 @@ These lines are typed live and don't appear in any training or eval file, so the
 
 ## 04. The data fix (title card: "4. A data fix for what v1 got wrong")
 
-v1 learned only from the experts' labels. On my forty-line pressure set it caught 3 of 11 toxic lines and flagged 5 harmless ones, mostly lines with hostile-looking words. So for v2 I changed only the data. Claude wrote 720 lines aimed at those patterns, a GPT critic checked them against my written rules, and 676 went into training. On the pressure set, v2 stops flagging "fucking lag again" and "cry more top", and now catches "jg diff". On the benchmark, the change is within noise.
+v1 learned only from the experts' labels. On my forty-line pressure set it caught 3 of 11 toxic lines and flagged 5 harmless ones. For v2 I changed only the data: Claude wrote 720 lines aimed at those patterns, a GPT critic checked them, and 676 went into training. The shipped v2 stops flagging "fucking lag again" and "cry more top", and catches "jg diff". But retrained with a second seed, only "jg diff" holds. The other two didn't repeat: that was training noise.
 
 ## 05. Still missed (title card: "5. What it still misses")
 
-But the main failure isn't fixed. Hostility without insult words gets "nontoxic" from all three small models: sarcasm like "wow great gank jungle, really helpful", "gg ez", and polite put-downs. Claude's best prompt catches all four. The new lines are six percent of the training data, seen once, and the expert lines outnumber them sixteen to one. Next I'd weight them more, and test on lines from a different writer.
+The main failure isn't fixed: sarcasm like "wow great gank jungle, really helpful", "gg ez", and polite put-downs still get "nontoxic". Repeating the teacher lines four times caught one sarcastic line, but cost 0.12 precision. A probe shows why. Asked "is this sarcastic?", v2 does as well as Claude. Asked "is it toxic?", it says no, because the experts labelled most sarcasm fine. The model sees sarcasm; its labels taught it not to flag it.
 
 ## 06. Data-efficiency curve (title card: "6. More expert data stops helping")
 

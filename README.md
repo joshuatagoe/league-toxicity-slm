@@ -76,13 +76,15 @@ The reader is `src/evalsets.py`, tested in `tests/test_evalsets.py`.
 
 ## Demo
 
+**Project page: [claude.ai/artifact/Em9KAaiwVMFHCDZzaGMC2o](https://claude.ai/artifact/Em9KAaiwVMFHCDZzaGMC2o)**, the headline results, the live demo and every link below on one page, above the cohort labelling study.
+
 **Live, in Colab: [demo/colab_demo.ipynb](https://colab.research.google.com/github/joshuatagoe/league-toxicity-slm/blob/main/demo/colab_demo.ipynb).** Choose the free T4 GPU and Run all, then type any chat line. The untrained Qwen3-1.7B and the public v2 adapter, both at the commits above, label it side by side. The notebook also labels the demo page's example lines next to their labels, and checks itself against the recorded eval runs on the 40 pressure lines. It needs a Google account, and the first run takes a few minutes to install three libraries and download about 4 GB.
 - **On a T4 the weights load in fp16**, because a T4 has no bf16. On an L4 or A100 they load in bf16, as in the eval runs.
 - **Tested by running the notebook's own code cells on this laptop's GPU.** In bf16 both models gave the same answer as their eval runs on all 1,000 benchmark lines and all 40 pressure lines.
 - **In fp16, standing in for a T4, the tuned model matched on 998 of 1,000 and 40 of 40.** Its two differences are new false alarms (`fuck blue`, `This engage was stupid pant`), which would take its benchmark precision from 0.857 to 0.833. The untrained model matched on 994 and 39; the pressure line is `cry more top` again.
 - **On Colab's T4 it gave the same results as that fp16 run** on the pressure lines: the tuned model matched on all 40 (30/40 right), the untrained one on 39. A typed line took under a second for both models. Colab ships an old `torchao` that peft 0.21 refuses to load beside, so the notebook uninstalls it first; the demo doesn't use it.
 
-**Video: [youtube.com/watch?v=yJ5kVQjnCCw](https://www.youtube.com/watch?v=yJ5kVQjnCCw)**, a narrated walkthrough of the tuned model next to the untrained one (also in the repo as [docs/walkthrough-voiced.mp4](docs/walkthrough-voiced.mp4); the silent cut is [docs/walkthrough.mp4](docs/walkthrough.mp4) and the script is [docs/walkthrough-script.md](docs/walkthrough-script.md)). To run the page it records (needs a CUDA GPU and the training environment):
+**Video: [youtu.be/9-evuZoQeQk](https://youtu.be/9-evuZoQeQk)**, a narrated walkthrough of the tuned model next to the untrained one (4:54; sections 4 and 5 were re-recorded for the final submission with the second-seed, v3 and sarcasm-probe results) (also in the repo as [docs/walkthrough-voiced.mp4](docs/walkthrough-voiced.mp4); the silent cut is [docs/walkthrough.mp4](docs/walkthrough.mp4) and the script is [docs/walkthrough-script.md](docs/walkthrough-script.md)). To run the page it records (needs a CUDA GPU and the training environment):
 
 ```
 .venv-train/Scripts/python demo/server.py

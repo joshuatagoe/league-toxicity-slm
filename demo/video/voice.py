@@ -15,6 +15,7 @@ from pathlib import Path
 
 HERE = Path(__file__).parent
 TAIL = 0.8  # seconds of quiet after a clip before the next section starts
+EDGE = 0.6  # a held frame comes from this long before the scene's end, before the next title card fades in
 
 
 def duration(path: Path) -> float:
@@ -58,7 +59,10 @@ def main() -> None:
             length = max(video_len, spoken + TAIL) if clip else video_len
             hold = max(0.0, length - video_len)
             out = Path(tmp) / f"p{n:02d}.mp4"
-            vf = f"trim=start={a:.3f}:end={b:.3f},setpts=PTS-STARTPTS" + (f",tpad=stop_mode=clone:stop_duration={hold:.3f}" if hold else "")
+            # The next title card starts fading in just before its logged start, so a hold freezes a frame from
+            # EDGE seconds earlier; otherwise the next card would show while this section's voice finishes.
+            end = b - EDGE if hold else b
+            vf = f"trim=start={a:.3f}:end={end:.3f},setpts=PTS-STARTPTS" + (f",tpad=stop_mode=clone:stop_duration={hold + EDGE:.3f}" if hold else "")
             cmd = ["ffmpeg", "-y", "-v", "error", "-i", str(video)]
             if clip:
                 cmd += ["-i", str(clip), "-filter_complex",
